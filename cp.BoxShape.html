@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>BoxShape - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,97 +27,249 @@
 
 <div id="main">
     
+    <h1 class="page-title">BoxShape</h1>
+    
 
     
 
 
 
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="cp.html">cp</a>.</span>
+        
+        BoxShape
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="BoxShape"><span class="type-signature"></span>new BoxShape<span class="signature">(body, width, height)</span><span class="type-signature"> &rarr; {<a href="cp.PolyShape.html">cp.PolyShape</a>}</span></h4>
+
     
 
 
 
 
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line146">line 146</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
 
 
+
+<div class="description">
+    Initialize a box shaped polygon shape.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Body of the box shape.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Shape width.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Shape height.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="cp.PolyShape.html">cp.PolyShape</a></span>
+
+
+    </dd>
+</dl>
 
     
 
 
-    <section class="readme">
-        <article><h1>Chipmunk for Javascript!</h1><p>This is a port of the <a href="http://chipmunk-physics.net/">Chipmunk Physics</a> library to Javascript!</p>
-<p>Check out the sexy <a href="http://dl.dropbox.com/u/2494815/demo/index.html">demos</a>! (Surprisingly, works best in Safari)</p>
-<h2>Caveats</h2><ul>
-<li>It is slower than the C version (duh, its in javascript). Specifically, physics simulations using chipmunk-js runs about 3 times slower than the C equivalent.</li>
-<li>I haven't implemented chipmunk's spatial hash, and I have no intention to do so.</li>
-<li>The feature set is lagged a little from the real Chipmunk library. Chipmunk-js currently corresponds to Chipmunk <em>6.1.1</em> published in August 2012.</li>
-</ul>
-<h1>Usage</h1><p>The API for Chipmunk-js is almost identical to chipmunk-physics. Except:</p>
-<ul>
-<li>The <code>cp</code> prefix has been replaced by a <code>cp</code> namespace. (Eg, <code>cpvadd(a, b)</code> becomes <code>cp.vadd(a, b)</code>.)</li>
-<li>Most functions are wrapped by their containing objects</li>
-<li><p>Some functions took an array-and-length. Arrays are now all simply javascript arrays, and the length argument has been removed. Eg:</p>
-<pre class="prettyprint source lang-c"><code>cpMomentForPoly(mass, numVerts, *verts, offset);</code></pre><p>  becomes:</p>
-<pre class="prettyprint source lang-javascript"><code>cp.momentForPoly(mass, verts, offset);</code></pre></li>
-<li><p>Lots of trivial getters and setters have been removed.</p>
-</li>
-<li>Lists of verticies are described using a flattened JS array of <code>[x1,y1, x2,y2, ...]</code> instead of an array of objects. For example, use <code>[0,0, 0,1, 1,1, 1,0]</code> instead of <code>[cp.v(0,0), cp.v(0,1), cp.v(1,1), cp.v(1,0)]</code>.</li>
-</ul>
-<h2>On a website</h2><pre class="prettyprint source lang-html"><code>&lt;script src=&quot;cp.min.js&quot;>&lt;/script>
+    
+    </div>
 
-&lt;script>
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...
-&lt;/script></code></pre><p>If any exceptions are thrown or anything, use <code>cp.js</code> instead of cp.min.js and post the stack trace you get to the issue page.</p>
-<h2>From nodejs</h2><p><code>npm install chipmunk</code></p>
-<pre class="prettyprint source lang-javascript"><code>cp = require('chipmunk');
+    
 
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...</code></pre><h1>Example</h1><p>This code creates a new space, sets 10 physics iterations per update (these increase simulation stability). Then it adds a bunch of line segments to the space.</p>
-<p>In C, this code looked like:</p>
-<pre class="prettyprint source lang-C"><code>  cpSpace *space = cpSpaceNew();
-  space->iterations = 10;
+    
 
-  cpVect offset = cpv(-320, -240);
-  for(int i=0; i&lt;(bouncy_terrain_count - 1); i++){
-    cpVect a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    cpShape *shape = cpSpaceAddShape(space, cpSegmentShapeNew(cpSpaceGetStaticBody(space), cpvadd(a, offset), cpvadd(b, offset), 0.0f));
-    cpShapeSetElasticity(shape, 1.0f);
-  }</code></pre><p>In javascript, the equivalent code is:</p>
-<pre class="prettyprint source lang-javascript"><code>  var space = new cp.Space();
-  space.iterations = 10;
+    
 
-  var offset = cp.v(-320, -240);
-  for(var i=0; i&lt;(bouncy_terrain_verts.length - 1); i++){
-    var a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    var shape = space.addShape(new cp.SegmentShape(space.staticBody, cp.vadd(a, offset), cp.vadd(b, offset), 0));
-    shape.setElasticity(1);
-  }</code></pre><h1>License</h1><p>Like Chipmunk, chipmunk-js is MIT licensed.</p>
-<pre class="prettyprint source"><code>Copyright (c) 2007 Scott Lembcke and Joseph Gentle
+     
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+    
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+    
 
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</code></pre></article>
-    </section>
+    
 
+    
 
+    
+</article>
+
+</section>
 
 
 
@@ -127,7 +279,7 @@ SOFTWARE.</code></pre></article>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:37 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:40 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

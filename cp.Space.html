@@ -1,0 +1,4118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Space - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arbiter.html">Arbiter</a><ul class='methods'><li data-type='method'><a href="Arbiter.html#applyCachedImpulse">applyCachedImpulse</a></li><li data-type='method'><a href="Arbiter.html#applyImpulse">applyImpulse</a></li><li data-type='method'><a href="Arbiter.html#callSeparate">callSeparate</a></li><li data-type='method'><a href="Arbiter.html#getA">getA</a></li><li data-type='method'><a href="Arbiter.html#getB">getB</a></li><li data-type='method'><a href="Arbiter.html#getContactPointSet">getContactPointSet</a></li><li data-type='method'><a href="Arbiter.html#getDepth">getDepth</a></li><li data-type='method'><a href="Arbiter.html#getNormal">getNormal</a></li><li data-type='method'><a href="Arbiter.html#getPoint">getPoint</a></li><li data-type='method'><a href="Arbiter.html#getShapes">getShapes</a></li><li data-type='method'><a href="Arbiter.html#ignore">ignore</a></li><li data-type='method'><a href="Arbiter.html#isFirstContact">isFirstContact</a></li><li data-type='method'><a href="Arbiter.html#next">next</a></li><li data-type='method'><a href="Arbiter.html#preStep">preStep</a></li><li data-type='method'><a href="Arbiter.html#totalImpulse">totalImpulse</a></li><li data-type='method'><a href="Arbiter.html#totalImpulseWithFriction">totalImpulseWithFriction</a></li><li data-type='method'><a href="Arbiter.html#totalKE">totalKE</a></li><li data-type='method'><a href="Arbiter.html#unthread">unthread</a></li><li data-type='method'><a href="Arbiter.html#update">update</a></li></ul></li><li><a href="circleSegmentQuery.html">circleSegmentQuery</a></li><li><a href="Contact.html">Contact</a></li><li><a href="ContactPoint.html">ContactPoint</a></li><li><a href="cp.BB.html">BB</a></li><li><a href="cp.BBTree.html">BBTree</a><ul class='methods'><li data-type='method'><a href="cp.BBTree.html#collideStatic">collideStatic</a></li><li data-type='method'><a href="cp.BBTree.html#contains">contains</a></li><li data-type='method'><a href="cp.BBTree.html#count">count</a></li><li data-type='method'><a href="cp.BBTree.html#each">each</a></li><li data-type='method'><a href="cp.BBTree.html#getBB">getBB</a></li><li data-type='method'><a href="cp.BBTree.html#getStamp">getStamp</a></li><li data-type='method'><a href="cp.BBTree.html#incrementStamp">incrementStamp</a></li><li data-type='method'><a href="cp.BBTree.html#insert">insert</a></li><li data-type='method'><a href="cp.BBTree.html#log">log</a></li><li data-type='method'><a href="cp.BBTree.html#makeNode">makeNode</a></li><li data-type='method'><a href="cp.BBTree.html#makePair">makePair</a></li><li data-type='method'><a href="cp.BBTree.html#optimize">optimize</a></li><li data-type='method'><a href="cp.BBTree.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.BBTree.html#query">query</a></li><li data-type='method'><a href="cp.BBTree.html#reindex">reindex</a></li><li data-type='method'><a href="cp.BBTree.html#reindexObject">reindexObject</a></li><li data-type='method'><a href="cp.BBTree.html#reindexQuery">reindexQuery</a></li><li data-type='method'><a href="cp.BBTree.html#remove">remove</a></li><li data-type='method'><a href="cp.BBTree.html#segmentQuery">segmentQuery</a></li><li data-type='method'><a href="cp.BBTree.html#subtreeRecycle">subtreeRecycle</a></li></ul></li><li><a href="cp.Body.html">Body</a><ul class='methods'><li data-type='method'><a href="cp.Body.html#addShape">addShape</a></li><li data-type='method'><a href="cp.Body.html#applyForce">applyForce</a></li><li data-type='method'><a href="cp.Body.html#applyImpulse">applyImpulse</a></li><li data-type='method'><a href="cp.Body.html#eachArbiter">eachArbiter</a></li><li data-type='method'><a href="cp.Body.html#eachConstraint">eachConstraint</a></li><li data-type='method'><a href="cp.Body.html#eachShape">eachShape</a></li><li data-type='method'><a href="cp.Body.html#getAngVel">getAngVel</a></li><li data-type='method'><a href="cp.Body.html#getPos">getPos</a></li><li data-type='method'><a href="cp.Body.html#getVel">getVel</a></li><li data-type='method'><a href="cp.Body.html#getVelAtLocalPoint">getVelAtLocalPoint</a></li><li data-type='method'><a href="cp.Body.html#getVelAtPoint">getVelAtPoint</a></li><li data-type='method'><a href="cp.Body.html#getVelAtWorldPoint">getVelAtWorldPoint</a></li><li data-type='method'><a href="cp.Body.html#isRogue">isRogue</a></li><li data-type='method'><a href="cp.Body.html#isSleeping">isSleeping</a></li><li data-type='method'><a href="cp.Body.html#kineticEnergy">kineticEnergy</a></li><li data-type='method'><a href="cp.Body.html#local2World">local2World</a></li><li data-type='method'><a href="cp.Body.html#position_func">position_func</a></li><li data-type='method'><a href="cp.Body.html#removeConstraint">removeConstraint</a></li><li data-type='method'><a href="cp.Body.html#removeShape">removeShape</a></li><li data-type='method'><a href="cp.Body.html#resetForces">resetForces</a></li><li data-type='method'><a href="cp.Body.html#setAngle">setAngle</a></li><li data-type='method'><a href="cp.Body.html#setAngleInternal">setAngleInternal</a></li><li data-type='method'><a href="cp.Body.html#setAngVel">setAngVel</a></li><li data-type='method'><a href="cp.Body.html#setMass">setMass</a></li><li data-type='method'><a href="cp.Body.html#setMoment">setMoment</a></li><li data-type='method'><a href="cp.Body.html#setPos">setPos</a></li><li data-type='method'><a href="cp.Body.html#setVel">setVel</a></li><li data-type='method'><a href="cp.Body.html#velocity_func">velocity_func</a></li><li data-type='method'><a href="cp.Body.html#world2Local">world2Local</a></li></ul></li><li><a href="cp.BoxShape.html">BoxShape</a></li><li><a href="cp.CircleShape.html">CircleShape</a><ul class='methods'><li data-type='method'><a href="cp.CircleShape.html#active">active</a></li><li data-type='method'><a href="cp.CircleShape.html#cacheBB">cacheBB</a></li><li data-type='method'><a href="cp.CircleShape.html#cacheData">cacheData</a></li><li data-type='method'><a href="cp.CircleShape.html#getBB">getBB</a></li><li data-type='method'><a href="cp.CircleShape.html#getBody">getBody</a></li><li data-type='method'><a href="cp.CircleShape.html#nearestPointQuery">nearestPointQuery</a></li><li data-type='method'><a href="cp.CircleShape.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.CircleShape.html#segmentQuery">segmentQuery</a></li><li data-type='method'><a href="cp.CircleShape.html#setBody">setBody</a></li><li data-type='method'><a href="cp.CircleShape.html#setCollisionType">setCollisionType</a></li><li data-type='method'><a href="cp.CircleShape.html#setElasticity">setElasticity</a></li><li data-type='method'><a href="cp.CircleShape.html#setFriction">setFriction</a></li><li data-type='method'><a href="cp.CircleShape.html#setLayers">setLayers</a></li><li data-type='method'><a href="cp.CircleShape.html#setSensor">setSensor</a></li><li data-type='method'><a href="cp.CircleShape.html#update">update</a></li></ul></li><li><a href="cp.CollisionHandler.html">CollisionHandler</a><ul class='methods'><li data-type='method'><a href="cp.CollisionHandler.html#begin">begin</a></li><li data-type='method'><a href="cp.CollisionHandler.html#postSolve">postSolve</a></li><li data-type='method'><a href="cp.CollisionHandler.html#preSolve">preSolve</a></li><li data-type='method'><a href="cp.CollisionHandler.html#separate">separate</a></li></ul></li><li><a href="cp.PolyShape.html">PolyShape</a><ul class='methods'><li data-type='method'><a href="cp.PolyShape.html#active">active</a></li><li data-type='method'><a href="cp.PolyShape.html#cacheBB">cacheBB</a></li><li data-type='method'><a href="cp.PolyShape.html#cacheData">cacheData</a></li><li data-type='method'><a href="cp.PolyShape.html#containsVert">containsVert</a></li><li data-type='method'><a href="cp.PolyShape.html#containsVertPartial">containsVertPartial</a></li><li data-type='method'><a href="cp.PolyShape.html#getBB">getBB</a></li><li data-type='method'><a href="cp.PolyShape.html#getBody">getBody</a></li><li data-type='method'><a href="cp.PolyShape.html#getNumVerts">getNumVerts</a></li><li data-type='method'><a href="cp.PolyShape.html#getVert">getVert</a></li><li data-type='method'><a href="cp.PolyShape.html#nearestPointQuery">nearestPointQuery</a></li><li data-type='method'><a href="cp.PolyShape.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.PolyShape.html#segmentQuery">segmentQuery</a></li><li data-type='method'><a href="cp.PolyShape.html#setBody">setBody</a></li><li data-type='method'><a href="cp.PolyShape.html#setCollisionType">setCollisionType</a></li><li data-type='method'><a href="cp.PolyShape.html#setElasticity">setElasticity</a></li><li data-type='method'><a href="cp.PolyShape.html#setFriction">setFriction</a></li><li data-type='method'><a href="cp.PolyShape.html#setLayers">setLayers</a></li><li data-type='method'><a href="cp.PolyShape.html#setSensor">setSensor</a></li><li data-type='method'><a href="cp.PolyShape.html#setVerts">setVerts</a></li><li data-type='method'><a href="cp.PolyShape.html#transformAxes">transformAxes</a></li><li data-type='method'><a href="cp.PolyShape.html#transformVerts">transformVerts</a></li><li data-type='method'><a href="cp.PolyShape.html#update">update</a></li><li data-type='method'><a href="cp.PolyShape.html#valueOnAxis">valueOnAxis</a></li></ul></li><li><a href="cp.SegmentShape.html">SegmentShape</a><ul class='methods'><li data-type='method'><a href="cp.SegmentShape.html#active">active</a></li><li data-type='method'><a href="cp.SegmentShape.html#cacheBB">cacheBB</a></li><li data-type='method'><a href="cp.SegmentShape.html#cacheData">cacheData</a></li><li data-type='method'><a href="cp.SegmentShape.html#getBB">getBB</a></li><li data-type='method'><a href="cp.SegmentShape.html#getBody">getBody</a></li><li data-type='method'><a href="cp.SegmentShape.html#nearestPointQuery">nearestPointQuery</a></li><li data-type='method'><a href="cp.SegmentShape.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.SegmentShape.html#segmentQuery">segmentQuery</a></li><li data-type='method'><a href="cp.SegmentShape.html#setBody">setBody</a></li><li data-type='method'><a href="cp.SegmentShape.html#setCollisionType">setCollisionType</a></li><li data-type='method'><a href="cp.SegmentShape.html#setElasticity">setElasticity</a></li><li data-type='method'><a href="cp.SegmentShape.html#setEndpoints">setEndpoints</a></li><li data-type='method'><a href="cp.SegmentShape.html#setFriction">setFriction</a></li><li data-type='method'><a href="cp.SegmentShape.html#setLayers">setLayers</a></li><li data-type='method'><a href="cp.SegmentShape.html#setNeighbors">setNeighbors</a></li><li data-type='method'><a href="cp.SegmentShape.html#setSensor">setSensor</a></li><li data-type='method'><a href="cp.SegmentShape.html#update">update</a></li></ul></li><li><a href="cp.Shape.html">Shape</a><ul class='methods'><li data-type='method'><a href="cp.Shape.html#active">active</a></li><li data-type='method'><a href="cp.Shape.html#cacheBB">cacheBB</a></li><li data-type='method'><a href="cp.Shape.html#getBB">getBB</a></li><li data-type='method'><a href="cp.Shape.html#getBody">getBody</a></li><li data-type='method'><a href="cp.Shape.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.Shape.html#setBody">setBody</a></li><li data-type='method'><a href="cp.Shape.html#setCollisionType">setCollisionType</a></li><li data-type='method'><a href="cp.Shape.html#setElasticity">setElasticity</a></li><li data-type='method'><a href="cp.Shape.html#setFriction">setFriction</a></li><li data-type='method'><a href="cp.Shape.html#setLayers">setLayers</a></li><li data-type='method'><a href="cp.Shape.html#setSensor">setSensor</a></li><li data-type='method'><a href="cp.Shape.html#update">update</a></li></ul></li><li><a href="cp.Space.html">Space</a><ul class='methods'><li data-type='method'><a href="cp.Space.html#addBody">addBody</a></li><li data-type='method'><a href="cp.Space.html#addCollisionHandler">addCollisionHandler</a></li><li data-type='method'><a href="cp.Space.html#addConstraint">addConstraint</a></li><li data-type='method'><a href="cp.Space.html#addShape">addShape</a></li><li data-type='method'><a href="cp.Space.html#addStaticShape">addStaticShape</a></li><li data-type='method'><a href="cp.Space.html#containsBody">containsBody</a></li><li data-type='method'><a href="cp.Space.html#containsConstraint">containsConstraint</a></li><li data-type='method'><a href="cp.Space.html#containsShape">containsShape</a></li><li data-type='method'><a href="cp.Space.html#eachBody">eachBody</a></li><li data-type='method'><a href="cp.Space.html#eachConstraint">eachConstraint</a></li><li data-type='method'><a href="cp.Space.html#eachShape">eachShape</a></li><li data-type='method'><a href="cp.Space.html#filterArbiters">filterArbiters</a></li><li data-type='method'><a href="cp.Space.html#getCurrentTimeStep">getCurrentTimeStep</a></li><li data-type='method'><a href="cp.Space.html#isLocked">isLocked</a></li><li data-type='method'><a href="cp.Space.html#lookupHandler">lookupHandler</a></li><li data-type='method'><a href="cp.Space.html#reindexShape">reindexShape</a></li><li data-type='method'><a href="cp.Space.html#reindexShapesForBody">reindexShapesForBody</a></li><li data-type='method'><a href="cp.Space.html#reindexStatic">reindexStatic</a></li><li data-type='method'><a href="cp.Space.html#removeBody">removeBody</a></li><li data-type='method'><a href="cp.Space.html#removeCollisionHandler">removeCollisionHandler</a></li><li data-type='method'><a href="cp.Space.html#removeConstraint">removeConstraint</a></li><li data-type='method'><a href="cp.Space.html#removeShape">removeShape</a></li><li data-type='method'><a href="cp.Space.html#removeStaticShape">removeStaticShape</a></li><li data-type='method'><a href="cp.Space.html#setDefaultCollisionHandler">setDefaultCollisionHandler</a></li><li data-type='method'><a href="cp.Space.html#setIterations">setIterations</a></li><li data-type='method'><a href="cp.Space.html#uncacheArbiter">uncacheArbiter</a></li><li data-type='method'><a href="cp.Space.html#useSpatialHash">useSpatialHash</a></li></ul></li><li><a href="cp.SpatialIndex.html">SpatialIndex</a><ul class='methods'><li data-type='method'><a href="cp.SpatialIndex.html#collideStatic">collideStatic</a></li></ul></li><li><a href="cp.Vect.html">Vect</a><ul class='methods'><li data-type='method'><a href="cp.Vect.html#add">add</a></li><li data-type='method'><a href="cp.Vect.html#mult">mult</a></li><li data-type='method'><a href="cp.Vect.html#neg">neg</a></li><li data-type='method'><a href="cp.Vect.html#project">project</a></li><li data-type='method'><a href="cp.Vect.html#rotate">rotate</a></li><li data-type='method'><a href="cp.Vect.html#sub">sub</a></li></ul></li><li><a href="Leaf.html">Leaf</a><ul class='methods'><li data-type='method'><a href="Leaf.html#addPairs">addPairs</a></li><li data-type='method'><a href="Leaf.html#clearPairs">clearPairs</a></li><li data-type='method'><a href="Leaf.html#containsObj">containsObj</a></li><li data-type='method'><a href="Leaf.html#markLeafQuery">markLeafQuery</a></li><li data-type='method'><a href="Leaf.html#markSubtree">markSubtree</a></li><li data-type='method'><a href="Leaf.html#recycle">recycle</a></li><li data-type='method'><a href="Leaf.html#update">update</a></li></ul></li><li><a href="NearestPointQueryInfo.html">NearestPointQueryInfo</a></li><li><a href="Node.html">Node</a><ul class='methods'><li data-type='method'><a href="Node.html#bbArea">bbArea</a></li><li data-type='method'><a href="Node.html#intersectsBB">intersectsBB</a></li><li data-type='method'><a href="Node.html#markLeafQuery">markLeafQuery</a></li><li data-type='method'><a href="Node.html#markSubtree">markSubtree</a></li><li data-type='method'><a href="Node.html#otherChild">otherChild</a></li><li data-type='method'><a href="Node.html#recycle">recycle</a></li><li data-type='method'><a href="Node.html#replaceChild">replaceChild</a></li><li data-type='method'><a href="Node.html#setA">setA</a></li><li data-type='method'><a href="Node.html#setB">setB</a></li></ul></li><li><a href="Pair.html">Pair</a><ul class='methods'><li data-type='method'><a href="Pair.html#recycle">recycle</a></li></ul></li><li><a href="PointQueryExtendedInfo.html">PointQueryExtendedInfo</a></li><li><a href="SegmentQueryInfo.html">SegmentQueryInfo</a><ul class='methods'><li data-type='method'><a href="SegmentQueryInfo.html#hitDist">hitDist</a></li><li data-type='method'><a href="SegmentQueryInfo.html#hitPoint">hitPoint</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="cp.html">cp</a><ul class='methods'><li data-type='method'><a href="cp.html#.areaForCircle">areaForCircle</a></li><li data-type='method'><a href="cp.html#.areaForPoly">areaForPoly</a></li><li data-type='method'><a href="cp.html#.areaForSegment">areaForSegment</a></li><li data-type='method'><a href="cp.html#.bb">bb</a></li><li data-type='method'><a href="cp.html#.BoxShape2">BoxShape2</a></li><li data-type='method'><a href="cp.html#.centroidForPoly">centroidForPoly</a></li><li data-type='method'><a href="cp.html#.collideShapes">collideShapes</a></li><li data-type='method'><a href="cp.html#.convexHull">convexHull</a></li><li data-type='method'><a href="cp.html#.loopIndexes">loopIndexes</a></li><li data-type='method'><a href="cp.html#.momentForBox">momentForBox</a></li><li data-type='method'><a href="cp.html#.momentForBox2">momentForBox2</a></li><li data-type='method'><a href="cp.html#.momentForCircle">momentForCircle</a></li><li data-type='method'><a href="cp.html#.momentForPoly">momentForPoly</a></li><li data-type='method'><a href="cp.html#.momentForSegment">momentForSegment</a></li><li data-type='method'><a href="cp.html#.recenterPoly">recenterPoly</a></li><li data-type='method'><a href="cp.html#.resetShapeIdCounter">resetShapeIdCounter</a></li><li data-type='method'><a href="cp.html#.v">v</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#assert">assert</a></li><li><a href="global.html#assertSoft">assertSoft</a></li><li><a href="global.html#assertSpaceUnlocked">assertSpaceUnlocked</a></li><li><a href="global.html#bbArea">bbArea</a></li><li><a href="global.html#bbClampVect">bbClampVect</a></li><li><a href="global.html#bbContainsBB">bbContainsBB</a></li><li><a href="global.html#bbContainsVect">bbContainsVect</a></li><li><a href="global.html#bbContainsVect2">bbContainsVect2</a></li><li><a href="global.html#bbExpand">bbExpand</a></li><li><a href="global.html#bbIntersects">bbIntersects</a></li><li><a href="global.html#bbIntersects2">bbIntersects2</a></li><li><a href="global.html#bbIntersectsSegment">bbIntersectsSegment</a></li><li><a href="global.html#bbMerge">bbMerge</a></li><li><a href="global.html#bbMergedArea">bbMergedArea</a></li><li><a href="global.html#bbMergedArea2">bbMergedArea2</a></li><li><a href="global.html#bbNewForCircle">bbNewForCircle</a></li><li><a href="global.html#bbProximity">bbProximity</a></li><li><a href="global.html#bbTreeIntersectsNode">bbTreeIntersectsNode</a></li><li><a href="global.html#bbTreeMergedArea">bbTreeMergedArea</a></li><li><a href="global.html#bbTreeMergedArea2">bbTreeMergedArea2</a></li><li><a href="global.html#bbWrapVect">bbWrapVect</a></li><li><a href="global.html#circle2circle">circle2circle</a></li><li><a href="global.html#circle2circleQuery">circle2circleQuery</a></li><li><a href="global.html#circle2poly">circle2poly</a></li><li><a href="global.html#circle2segment">circle2segment</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#clamp01">clamp01</a></li><li><a href="global.html#closestPointOnSegment">closestPointOnSegment</a></li><li><a href="global.html#closestPointOnSegment2">closestPointOnSegment2</a></li><li><a href="global.html#componentActivate">componentActivate</a></li><li><a href="global.html#componentActive">componentActive</a></li><li><a href="global.html#componentAdd">componentAdd</a></li><li><a href="global.html#componentRoot">componentRoot</a></li><li><a href="global.html#CP_MAX_CONTACTS_PER_ARBITER">CP_MAX_CONTACTS_PER_ARBITER</a></li><li><a href="global.html#createStaticBody">createStaticBody</a></li><li><a href="global.html#defaultCollisionHandler">defaultCollisionHandler</a></li><li><a href="global.html#deleteObjFromList">deleteObjFromList</a></li><li><a href="global.html#filterConstraints">filterConstraints</a></li><li><a href="global.html#findMSA">findMSA</a></li><li><a href="global.html#findPointsBehindSeg">findPointsBehindSeg</a></li><li><a href="global.html#findVerts">findVerts</a></li><li><a href="global.html#findVertsFallback">findVertsFallback</a></li><li><a href="global.html#floodFillComponent">floodFillComponent</a></li><li><a href="global.html#hashPair">hashPair</a></li><li><a href="global.html#last_MSA_min">last_MSA_min</a></li><li><a href="global.html#lerp">lerp</a></li><li><a href="global.html#lerpconst">lerpconst</a></li><li><a href="global.html#mymax">mymax</a></li><li><a href="global.html#mymin">mymin</a></li><li><a href="global.html#nodeRender">nodeRender</a></li><li><a href="global.html#nodeSegmentQuery">nodeSegmentQuery</a></li><li><a href="global.html#NONE">NONE</a></li><li><a href="global.html#numContacts">numContacts</a></li><li><a href="global.html#numLeaves">numLeaves</a></li><li><a href="global.html#numNodes">numNodes</a></li><li><a href="global.html#numPairs">numPairs</a></li><li><a href="global.html#pairInsert">pairInsert</a></li><li><a href="global.html#partitionNodes">partitionNodes</a></li><li><a href="global.html#poly2poly">poly2poly</a></li><li><a href="global.html#polyValidate">polyValidate</a></li><li><a href="global.html#QHullPartition">QHullPartition</a></li><li><a href="global.html#QHullReduce">QHullReduce</a></li><li><a href="global.html#return%257Bboolean%257D">return	{boolean}</a></li><li><a href="global.html#seg2poly">seg2poly</a></li><li><a href="global.html#segValueOnAxis">segValueOnAxis</a></li><li><a href="global.html#shapeIDCounter">shapeIDCounter</a></li><li><a href="global.html#SplittingPlane">SplittingPlane</a></li><li><a href="global.html#subtreeInsert">subtreeInsert</a></li><li><a href="global.html#subtreeQuery">subtreeQuery</a></li><li><a href="global.html#subtreeRemove">subtreeRemove</a></li><li><a href="global.html#subtreeSegmentQuery">subtreeSegmentQuery</a></li><li><a href="global.html#SWAP">SWAP</a></li><li><a href="global.html#unlinkThread">unlinkThread</a></li><li><a href="global.html#unthreadHelper">unthreadHelper</a></li><li><a href="global.html#updateFunc">updateFunc</a></li><li><a href="global.html#vcross2">vcross2</a></li><li><a href="global.html#vdot2">vdot2</a></li><li><a href="global.html#voidQueryFunc">voidQueryFunc</a></li><li><a href="global.html#vzero">vzero</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Space</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="cp.html">cp</a>.</span>
+        
+        Space
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="Space"><span class="type-signature"></span>new Space<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Basic Unit of Simulation in Chipmunk
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="addBody"><span class="type-signature"></span>addBody<span class="signature">(body)</span><span class="type-signature"> &rarr; {<a href="cp.Body.html">cp.Body</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line301">line 301</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Add a rigid body to the simulation.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addCollisionHandler"><span class="type-signature"></span>addCollisionHandler<span class="signature">(a, b, begin, preSolve, postSolve, separate)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line167">line 167</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Set a collision handler to be used whenever the two shapes with the given collision types collide.You can pass null for any function you don't want to implement.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Collision Type.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Collision Type.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>begin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Two shapes just started touching for the first time this step.						Return true from the callback to process the collision normally or false to cause Chipmunk to ignore the collision entirely.						If you return false, the preSolve() and postSolve() callbacks will never be run, but you will still recieve a separate event when the shapes stop overlapping.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preSolve</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Two shapes are touching during this step.						Return false from the callback to make Chipmunk ignore the collision this step or true to process it normally.						Additionally, you may override collision values using cpArbiterSetFriction(), cpArbiterSetElasticity() or cpArbiterSetSurfaceVelocity() to provide custom friction, elasticity, or surface velocity values.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>postSolve</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Two shapes are touching and their collision response has been processed.						You can retrieve the collision impulse or kinetic energy at this time if you want to use it to calculate sound volumes or damage amounts.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>separate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Two shapes have just stopped touching for the first time this step.						To ensure that begin()/separate() are always called in balanced pairs, it will also be called when removing a shape while its in contact with something or when deallocating the space.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addConstraint"><span class="type-signature"></span>addConstraint<span class="signature">(constraint)</span><span class="type-signature"> &rarr; {cp.Constraint}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line321">line 321</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Add a constraint to the simulation.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>constraint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">cp.Constraint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">cp.Constraint</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addShape"><span class="type-signature"></span>addShape<span class="signature">(shape)</span><span class="type-signature"> &rarr; {<a href="cp.Shape.html">cp.Shape</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Add a collision shape to the simulation.If the shape is attached to a static body, it will be added as a static shape.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addStaticShape"><span class="type-signature"></span>addStaticShape<span class="signature">(shape)</span><span class="type-signature"> &rarr; {<a href="cp.Shape.html">cp.Shape</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line278">line 278</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Explicity add a shape as a static shape to the simulation.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="containsBody"><span class="type-signature"></span>containsBody<span class="signature">(body)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line478">line 478</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Test if a rigid body has been added to the space.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="containsConstraint"><span class="type-signature"></span>containsConstraint<span class="signature">(constraint)</span><span class="type-signature"> &rarr; {bool}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line491">line 491</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Test if a constraint has been added to the space.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>constraint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">cp.Constraint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="containsShape"><span class="type-signature"></span>containsShape<span class="signature">(shape)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line465">line 465</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Test if a collision shape has been added to the space.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="eachBody"><span class="type-signature"></span>eachBody<span class="signature">(func)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line516">line 516</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Call func for each body in the space.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="eachConstraint"><span class="type-signature"></span>eachConstraint<span class="signature">(func)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line561">line 561</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Call func for each shape in the space.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="eachShape"><span class="type-signature"></span>eachShape<span class="signature">(func)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line546">line 546</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Call func for each shape in the space.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>func</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="filterArbiters"><span class="type-signature"></span>filterArbiters<span class="signature">(body, filter)</span><span class="type-signature"> &rarr; {<a href="Arbiter.html">Arbiter</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line346">line 346</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Arbiter.html">Arbiter</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getCurrentTimeStep"><span class="type-signature"></span>getCurrentTimeStep<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="isLocked"><span class="type-signature"></span>isLocked<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    returns true from inside a callback and objects cannot be added/removed.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="lookupHandler"><span class="type-signature"></span>lookupHandler<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {CollisionHandler}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line235">line 235</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">CollisionHandler</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="reindexShape"><span class="type-signature"></span>reindexShape<span class="signature">(shape)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line598">line 598</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Update the collision detection data for a specific shape in the space.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="reindexShapesForBody"><span class="type-signature"></span>reindexShapesForBody<span class="signature">(body)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line617">line 617</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Update the collision detection data for all shapes attached to a body.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="reindexStatic"><span class="type-signature"></span>reindexStatic<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line580">line 580</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Update the collision detection info for the static shapes in the space.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeBody"><span class="type-signature"></span>removeBody<span class="signature">(body)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line423">line 423</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Remove a rigid body from the simulation.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeCollisionHandler"><span class="type-signature"></span>removeCollisionHandler<span class="signature">(a, b)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line193">line 193</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Unset a collision handler.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Collision Type.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Collision Typel</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeConstraint"><span class="type-signature"></span>removeConstraint<span class="signature">(constraint)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line442">line 442</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Remove a constraint from the simulation.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>constraint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">cp.Constraint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeShape"><span class="type-signature"></span>removeShape<span class="signature">(shape)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line377">line 377</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Remove a collision shape from the simulation.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeStaticShape"><span class="type-signature"></span>removeStaticShape<span class="signature">(shape)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line402">line 402</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Remove a collision shape added using addStaticShape() from the simulation.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>shape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Shape.html">cp.Shape</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setDefaultCollisionHandler"><span class="type-signature"></span>setDefaultCollisionHandler<span class="signature">(begin, preSolve, postSolve, separate)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line216">line 216</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Set a default collision handler for this space.The default collision handler is invoked for each colliding pair of shapesthat isn't explicitly handled by a specific collision handler.You can pass null for any function you don't want to implement.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>begin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preSolve</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>postSolve</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>separate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setIterations"><span class="type-signature"></span>setIterations<span class="signature">(iter)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line121">line 121</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>iter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="uncacheArbiter"><span class="type-signature"></span>uncacheArbiter<span class="signature">(arb)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line500">line 500</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>arb</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Arbiter.html">Arbiter</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="useSpatialHash"><span class="type-signature"></span>useSpatialHash<span class="signature">(dim, count)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpSpace.js.html">cpSpace.js</a>, <a href="cpSpace.js.html#line632">line 632</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Switch the space to use a spatial has as it's spatial index.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dim</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:42 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

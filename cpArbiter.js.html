@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>cpArbiter.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,97 +27,661 @@
 
 <div id="main">
     
+    <h1 class="page-title">cpArbiter.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* Copyright (c) 2007 Scott Lembcke
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/// @defgroup cpArbiter cpArbiter
+/// The cpArbiter struct controls pairs of colliding shapes.
+/// They are also used in conjuction with collision handler callbacks
+/// allowing you to retrieve information on the collision and control it.
 
 
+// **** Collision Handlers
+//
+// Collision handlers are user-defined objects to describe the behaviour of colliding
+// objects.
+/**
+ * Collision handlers are user-defined objects to describe the behaviour of colliding objects.
+ * 
+ * @class
+ * @memberof	cp
+ */
+var CollisionHandler = cp.CollisionHandler = function()
+{
+	// The collision type
+	this.a = this.b = 0;
+};
 
+/// Collision begin event callback
+/// Returning false from a begin callback causes the collision to be ignored until
+/// the the separate callback is called when the objects stop colliding.
+/**
+ * Collision begin event callback
+ * Returning false from a begin callback causes the collision to be ignored until
+ * the the separate callback is called when the objects stop colliding.
+ *
+ * @function
+ * @param	{Arbiter}	arb
+ * @param	{cp.Space}	space
+ * @return	{boolean}
+ */
+CollisionHandler.prototype.begin = function(arb, space){return true;};
 
+/// Collision pre-solve event callback
+/// Returning false from a pre-step callback causes the collision to be ignored until the next step.
+/**
+ * Collision pre-solve event callback
+ * Returning false from a pre-step callback causes the collision to be ignored until the next step.
+ * 
+ * @function
+ * @param	{Arbiter}	arb
+ * @param	{cp.Space}	space
+ * @return	{boolean}
+ */
+CollisionHandler.prototype.preSolve = function(arb, space){return true;};
 
+/// Collision post-solve event function callback type.
+/**
+ * Collision post-solve event function callback type.
+ * 
+ * @function
+ * @param	{Arbiter}	arb
+ * @param	{cp.Space}	space
+ */
+CollisionHandler.prototype.postSolve = function(arb, space){};
 
+///`Collision separate event function callback type.
+/**
+ * Collision separate event function callback type.
+ *
+ * @function
+ * @param	{Arbiter}	arb
+ * @param	{cp.Space}	space
+ */
+CollisionHandler.prototype.separate = function(arb, space){};
 
+/**
+ * @constant	{number}
+ * @readonly
+ */
+var CP_MAX_CONTACTS_PER_ARBITER = 4;
 
+// Arbiter states
+//
+// Arbiter is active and its the first collision.
+//	'first coll'
+// Arbiter is active and its not the first collision.
+//	'normal',
+// Collision has been explicitly ignored.
+// Either by returning false from a begin collision handler or calling cpArbiterIgnore().
+//	'ignore',
+// Collison is no longer active. A space will cache an arbiter for up to cpSpace.collisionPersistence more steps.
+//	'cached'
 
-    
+/// A colliding pair of shapes.
+/**
+ * A colliding pair of shapes.
+ *
+ * @class
+ * @param	{cp.Shape}	a
+ * @param	{cp.Shape}	b
+ * @property	{cp.Shape}	a
+ * @property	{cp.Shape}	b
+ */
+var Arbiter = function(a, b) {
+	/// Calculated value to use for the elasticity coefficient.
+	/// Override in a pre-solve collision handler for custom behavior.
+	/**
+	 * Calculated value to use for the elasticity coefficient.
+	 * Override in a pre-solve collision handler for custom behavior.
+	 *
+	 * @member	{number}
+	 */
+	this.e = 0;
+	/// Calculated value to use for the friction coefficient.
+	/// Override in a pre-solve collision handler for custom behavior.
+	/**
+	 * Calculated value to use for the friction coefficient.
+	 * Override in a pre-solve collision handler for custom behavior.
+	 *
+	 * @member	{number}
+	 */
+	this.u = 0;
+	/// Calculated value to use for applying surface velocities.
+	/// Override in a pre-solve collision handler for custom behavior.
+	/**
+	 * Calculated value to use for applying surface velocities.
+	 * Override in a pre-solve collision handler for custom behavior.
+	 *
+	 * @member	{cp.Vect}
+	 * @default	vzero
+	 */
+	this.surface_vr = vzero;
+	
+	this.a = a; this.body_a = a.body;
+	this.b = b; this.body_b = b.body;
+	
+	this.thread_a_next = this.thread_a_prev = null;
+	this.thread_b_next = this.thread_b_prev = null;
+	
+	this.contacts = null;
+	
+	this.stamp = 0;
+	this.handler = null;
+	this.swappedColl = false;
+	this.state = 'first coll';
+};
 
+/**
+ * Return the colliding shapes involved for this arbiter. 
+ *
+ * @function
+ * @return	{cp.Shape[]}	Array of colliding shapes.
+ */
+Arbiter.prototype.getShapes = function()
+{
+	if (this.swappedColl){
+		return [this.b, this.a];
+	}else{
+		return [this.a, this.b];
+	}
+}
 
-    <section class="readme">
-        <article><h1>Chipmunk for Javascript!</h1><p>This is a port of the <a href="http://chipmunk-physics.net/">Chipmunk Physics</a> library to Javascript!</p>
-<p>Check out the sexy <a href="http://dl.dropbox.com/u/2494815/demo/index.html">demos</a>! (Surprisingly, works best in Safari)</p>
-<h2>Caveats</h2><ul>
-<li>It is slower than the C version (duh, its in javascript). Specifically, physics simulations using chipmunk-js runs about 3 times slower than the C equivalent.</li>
-<li>I haven't implemented chipmunk's spatial hash, and I have no intention to do so.</li>
-<li>The feature set is lagged a little from the real Chipmunk library. Chipmunk-js currently corresponds to Chipmunk <em>6.1.1</em> published in August 2012.</li>
-</ul>
-<h1>Usage</h1><p>The API for Chipmunk-js is almost identical to chipmunk-physics. Except:</p>
-<ul>
-<li>The <code>cp</code> prefix has been replaced by a <code>cp</code> namespace. (Eg, <code>cpvadd(a, b)</code> becomes <code>cp.vadd(a, b)</code>.)</li>
-<li>Most functions are wrapped by their containing objects</li>
-<li><p>Some functions took an array-and-length. Arrays are now all simply javascript arrays, and the length argument has been removed. Eg:</p>
-<pre class="prettyprint source lang-c"><code>cpMomentForPoly(mass, numVerts, *verts, offset);</code></pre><p>  becomes:</p>
-<pre class="prettyprint source lang-javascript"><code>cp.momentForPoly(mass, verts, offset);</code></pre></li>
-<li><p>Lots of trivial getters and setters have been removed.</p>
-</li>
-<li>Lists of verticies are described using a flattened JS array of <code>[x1,y1, x2,y2, ...]</code> instead of an array of objects. For example, use <code>[0,0, 0,1, 1,1, 1,0]</code> instead of <code>[cp.v(0,0), cp.v(0,1), cp.v(1,1), cp.v(1,0)]</code>.</li>
-</ul>
-<h2>On a website</h2><pre class="prettyprint source lang-html"><code>&lt;script src=&quot;cp.min.js&quot;>&lt;/script>
+/// Calculate the total impulse that was applied by this arbiter.
+/// This function should only be called from a post-solve, post-step or cpBodyEachArbiter callback.
+/**
+ * Calculate the total impulse that was applied by this arbiter.
+ * This function should only be called from a post-solve, post-step or cpBodyEachArbiter callback.
+ *
+ * @function
+ * @return	{cp.Vect}
+ */
+Arbiter.prototype.totalImpulse = function()
+{
+	var contacts = this.contacts;
+	var sum = new Vect(0,0);
+	
+	for(var i=0, count=contacts.length; i&lt;count; i++){
+		var con = contacts[i];
+		sum.add(vmult(con.n, con.jnAcc));
+	}
+	
+	return this.swappedColl ? sum : sum.neg();
+};
 
-&lt;script>
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...
-&lt;/script></code></pre><p>If any exceptions are thrown or anything, use <code>cp.js</code> instead of cp.min.js and post the stack trace you get to the issue page.</p>
-<h2>From nodejs</h2><p><code>npm install chipmunk</code></p>
-<pre class="prettyprint source lang-javascript"><code>cp = require('chipmunk');
+/// Calculate the total impulse including the friction that was applied by this arbiter.
+/// This function should only be called from a post-solve, post-step or cpBodyEachArbiter callback.
+/**
+ * Calculate the total impulse including the friction that was applied by this arbiter.
+ * This function should only be called from a post-solve, post-step or cpBodyEachArbiter callback.
+ * 
+ * @function
+ * @return	{cp.Vect}
+ */
+Arbiter.prototype.totalImpulseWithFriction = function()
+{
+	var contacts = this.contacts;
+	var sum = new Vect(0,0);
+	
+	for(var i=0, count=contacts.length; i&lt;count; i++){
+		var con = contacts[i];
+		sum.add(new Vect(con.jnAcc, con.jtAcc).rotate(con.n));
+	}
 
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...</code></pre><h1>Example</h1><p>This code creates a new space, sets 10 physics iterations per update (these increase simulation stability). Then it adds a bunch of line segments to the space.</p>
-<p>In C, this code looked like:</p>
-<pre class="prettyprint source lang-C"><code>  cpSpace *space = cpSpaceNew();
-  space->iterations = 10;
+	return this.swappedColl ? sum : sum.neg();
+};
 
-  cpVect offset = cpv(-320, -240);
-  for(int i=0; i&lt;(bouncy_terrain_count - 1); i++){
-    cpVect a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    cpShape *shape = cpSpaceAddShape(space, cpSegmentShapeNew(cpSpaceGetStaticBody(space), cpvadd(a, offset), cpvadd(b, offset), 0.0f));
-    cpShapeSetElasticity(shape, 1.0f);
-  }</code></pre><p>In javascript, the equivalent code is:</p>
-<pre class="prettyprint source lang-javascript"><code>  var space = new cp.Space();
-  space.iterations = 10;
+/// Calculate the amount of energy lost in a collision including static, but not dynamic friction.
+/// This function should only be called from a post-solve, post-step or cpBodyEachArbiter callback.
+/**
+ * Calculate the amount of energy lost in a collision including static, but not dynamic friction.
+ * This function should only be called from a post-solve, post-step or cpBodyEachArbiter callback.
+ * 
+ * @function
+ * @return	{number}
+ */
+Arbiter.prototype.totalKE = function()
+{
+	var eCoef = (1 - this.e)/(1 + this.e);
+	var sum = 0;
+	
+	var contacts = this.contacts;
+	for(var i=0, count=contacts.length; i&lt;count; i++){
+		var con = contacts[i];
+		var jnAcc = con.jnAcc;
+		var jtAcc = con.jtAcc;
+		
+		sum += eCoef*jnAcc*jnAcc/con.nMass + jtAcc*jtAcc/con.tMass;
+	}
+	
+	return sum;
+};
 
-  var offset = cp.v(-320, -240);
-  for(var i=0; i&lt;(bouncy_terrain_verts.length - 1); i++){
-    var a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    var shape = space.addShape(new cp.SegmentShape(space.staticBody, cp.vadd(a, offset), cp.vadd(b, offset), 0));
-    shape.setElasticity(1);
-  }</code></pre><h1>License</h1><p>Like Chipmunk, chipmunk-js is MIT licensed.</p>
-<pre class="prettyprint source"><code>Copyright (c) 2007 Scott Lembcke and Joseph Gentle
+/// Causes a collision pair to be ignored as if you returned false from a begin callback.
+/// If called from a pre-step callback, you will still need to return false
+/// if you want it to be ignored in the current step.
+/**
+ * Causes a collision pair to be ignored as if you returned false from a begin callback.
+ * If called from a pre-step callback, you will still need to return false
+ * if you want it to be ignored in the current step.
+ *
+ * @function
+ */
+Arbiter.prototype.ignore = function()
+{
+	this.state = 'ignore';
+};
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+/// Return the colliding shapes involved for this arbiter.
+/// The order of their cpSpace.collision_type values will match
+/// the order set when the collision handler was registered.
+/**
+ * Return the colliding shapes involved for this arbiter.
+ * The order of their cpSpace.collision_type values will match
+ * the order set when the collision handler was registered.
+ *
+ * @function
+ * @return	{cp.Shape}
+ */
+Arbiter.prototype.getA = function()
+{
+	return this.swappedColl ? this.b : this.a;
+};
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+/**
+ * @function
+ * @return	{cp.Shape}
+ */
+Arbiter.prototype.getB = function()
+{
+	return this.swappedColl ? this.a : this.b;
+};
 
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</code></pre></article>
+/// Returns true if this is the first step a pair of objects started colliding.
+/**
+ * Returns true if this is the first step a pair of objects started colliding.
+ *
+ * @function
+ * @return	{boolean}
+ */
+Arbiter.prototype.isFirstContact = function()
+{
+	return this.state === 'first coll';
+};
+
+/// A struct that wraps up the important collision data for an arbiter.
+/**
+ * A struct that wraps up the important collision data for an arbiter.
+ *
+ * @class
+ * @param	{cp.Vect}	point	The position of the contact on the surface of each shape.
+ * @param	{cp.Vect}	normal	The normal of the collision.
+ * @param	{number}	dist	Penetration distance of the two shapes.
+ */
+var ContactPoint = function(point, normal, dist)
+{
+	/**
+	 * @member	{cp.Vect}
+	 */
+	this.point = point;
+
+	/**
+	 * @member	{cp.Vect}
+	 */
+	this.normal = normal;
+
+	/**
+	 * @member	{number}
+	 */
+	this.dist = dist;
+};
+
+/// Return a contact set from an arbiter.
+/**
+ * Return a contact set from an arbiter.
+ *
+ * @function
+ * @return	{ContactPoint[]}
+ */
+Arbiter.prototype.getContactPointSet = function()
+{
+	var set = new Array(this.contacts.length);
+	
+	var i;
+	for(i=0; i&lt;set.length; i++){
+		set[i] = new ContactPoint(this.contacts[i].p, this.contacts[i].n, this.contacts[i].dist);
+	}
+	
+	return set;
+};
+
+/// Get the normal of the @c ith contact point.
+/**
+ * Get the normal of the ith contact point.
+ *
+ * @function
+ * @param	{number}	i	Index of target contact point.
+ * @return	{cp.Vect}
+ */
+Arbiter.prototype.getNormal = function(i)
+{
+	var n = this.contacts[i].n;
+	return this.swappedColl ? vneg(n) : n;
+};
+
+/// Get the position of the @c ith contact point.
+/**
+ * Get the position of the ith contact point.
+ *
+ * @function
+ * @param	{number}	i	Index of target contact point.
+ * @retrun	{cp.Vect}
+ */
+Arbiter.prototype.getPoint = function(i)
+{
+	return this.contacts[i].p;
+};
+
+/// Get the depth of the @c ith contact point.
+/**
+ * Get the depth of the ith contact point.
+ *
+ * @function
+ * @param	{number}	i	Index of target contact point.
+ * @return	{number}
+ */
+Arbiter.prototype.getDepth = function(i)
+{
+	return this.contacts[i].dist;
+};
+
+/*
+Arbiter.prototype.threadForBody = function(body)
+{
+	return (this.body_a === body ? this.thread_a : this.thread_b);
+};*/
+
+/**
+ * @function
+ * @param	{Arbiter}	arb
+ * @param	{cp.Body}	body
+ * @param	{Arbiter}	prev
+ * @param	{Arbiter}	next
+ */
+var unthreadHelper = function(arb, body, prev, next)
+{
+	// thread_x_y is quite ugly, but it avoids making unnecessary js objects per arbiter.
+	if(prev){
+		// cpArbiterThreadForBody(prev, body)->next = next;
+		if(prev.body_a === body) {
+			prev.thread_a_next = next;
+		} else {
+			prev.thread_b_next = next;
+		}
+	} else if(body.arbiterList === arb){
+		body.arbiterList = next;
+	}
+	
+	if(next){
+		// cpArbiterThreadForBody(next, body)->prev = prev;
+		if(next.body_a === body){
+			next.thread_a_prev = prev;
+		} else {
+			next.thread_b_prev = prev;
+		}
+	}
+};
+
+/**
+ * @function
+ */
+Arbiter.prototype.unthread = function()
+{
+	unthreadHelper(this, this.body_a, this.thread_a_prev, this.thread_a_next);
+	unthreadHelper(this, this.body_b, this.thread_b_prev, this.thread_b_next);
+	this.thread_a_prev = this.thread_a_next = null;
+	this.thread_b_prev = this.thread_b_next = null;
+};
+
+//cpFloat
+//cpContactsEstimateCrushingImpulse(cpContact *contacts, int numContacts)
+//{
+//	cpFloat fsum = 0;
+//	cpVect vsum = vzero;
+//	
+//	for(int i=0; i&lt;numContacts; i++){
+//		cpContact *con = &amp;contacts[i];
+//		cpVect j = vrotate(con.n, v(con.jnAcc, con.jtAcc));
+//		
+//		fsum += vlength(j);
+//		vsum = vadd(vsum, j);
+//	}
+//	
+//	cpFloat vmag = vlength(vsum);
+//	return (1 - vmag/fsum);
+//}
+
+/**
+ * @function
+ * @param	{Contact[]}		contacts
+ * @param	{cp.CollisionHandler}	handler
+ * @param	{cp.Shape}		a
+ * @param	{cp.Shape}		b
+ */
+Arbiter.prototype.update = function(contacts, handler, a, b)
+{
+	// Arbiters without contact data may exist if a collision function rejected the collision.
+	if(this.contacts){
+		// Iterate over the possible pairs to look for hash value matches.
+		for(var i=0; i&lt;this.contacts.length; i++){
+			var old = this.contacts[i];
+			
+			for(var j=0; j&lt;contacts.length; j++){
+				var new_contact = contacts[j];
+				
+				// This could trigger false positives, but is fairly unlikely nor serious if it does.
+				if(new_contact.hash === old.hash){
+					// Copy the persistant contact information.
+					new_contact.jnAcc = old.jnAcc;
+					new_contact.jtAcc = old.jtAcc;
+				}
+			}
+		}
+	}
+	
+	this.contacts = contacts;
+	
+	this.handler = handler;
+	this.swappedColl = (a.collision_type !== handler.a);
+	
+	this.e = a.e * b.e;
+	this.u = a.u * b.u;
+	this.surface_vr = vsub(a.surface_v, b.surface_v);
+	
+	// For collisions between two similar primitive types, the order could have been swapped.
+	this.a = a; this.body_a = a.body;
+	this.b = b; this.body_b = b.body;
+	
+	// mark it as new if it's been cached
+	if(this.state == 'cached') this.state = 'first coll';
+};
+
+/**
+ * @function
+ * @param	{number}	dt
+ * @param	{number}	slop
+ * @param	{number}	bias
+ */
+Arbiter.prototype.preStep = function(dt, slop, bias)
+{
+	var a = this.body_a;
+	var b = this.body_b;
+	
+	for(var i=0; i&lt;this.contacts.length; i++){
+		var con = this.contacts[i];
+		
+		// Calculate the offsets.
+		con.r1 = vsub(con.p, a.p);
+		con.r2 = vsub(con.p, b.p);
+		
+		// Calculate the mass normal and mass tangent.
+		con.nMass = 1/k_scalar(a, b, con.r1, con.r2, con.n);
+		con.tMass = 1/k_scalar(a, b, con.r1, con.r2, vperp(con.n));
+	
+		// Calculate the target bias velocity.
+		con.bias = -bias*min(0, con.dist + slop)/dt;
+		con.jBias = 0;
+		
+		// Calculate the target bounce velocity.
+		con.bounce = normal_relative_velocity(a, b, con.r1, con.r2, con.n)*this.e;
+	}
+};
+
+/**
+ * @function
+ * @param	{number}	dt_coef
+ */
+Arbiter.prototype.applyCachedImpulse = function(dt_coef)
+{
+	if(this.isFirstContact()) return;
+	
+	var a = this.body_a;
+	var b = this.body_b;
+	
+	for(var i=0; i&lt;this.contacts.length; i++){
+		var con = this.contacts[i];
+		//var j = vrotate(con.n, new Vect(con.jnAcc, con.jtAcc));
+		var nx = con.n.x;
+		var ny = con.n.y;
+		var jx = nx*con.jnAcc - ny*con.jtAcc;
+		var jy = nx*con.jtAcc + ny*con.jnAcc;
+		//apply_impulses(a, b, con.r1, con.r2, vmult(j, dt_coef));
+		apply_impulses(a, b, con.r1, con.r2, jx * dt_coef, jy * dt_coef);
+	}
+};
+
+// TODO is it worth splitting velocity/position correction?
+
+var numApplyImpulse = 0;
+var numApplyContact = 0;
+
+/**
+ * @function
+ */
+Arbiter.prototype.applyImpulse = function()
+{
+	numApplyImpulse++;
+	//if (!this.contacts) { throw new Error('contacts is undefined'); }
+	var a = this.body_a;
+	var b = this.body_b;
+	var surface_vr = this.surface_vr;
+	var friction = this.u;
+
+	for(var i=0; i&lt;this.contacts.length; i++){
+		numApplyContact++;
+		var con = this.contacts[i];
+		var nMass = con.nMass;
+		var n = con.n;
+		var r1 = con.r1;
+		var r2 = con.r2;
+		
+		//var vr = relative_velocity(a, b, r1, r2);
+		var vrx = b.vx - r2.y * b.w - (a.vx - r1.y * a.w);
+		var vry = b.vy + r2.x * b.w - (a.vy + r1.x * a.w);
+		
+		//var vb1 = vadd(vmult(vperp(r1), a.w_bias), a.v_bias);
+		//var vb2 = vadd(vmult(vperp(r2), b.w_bias), b.v_bias);
+		//var vbn = vdot(vsub(vb2, vb1), n);
+
+		var vbn = n.x*(b.v_biasx - r2.y * b.w_bias - a.v_biasx + r1.y * a.w_bias) +
+				n.y*(r2.x*b.w_bias + b.v_biasy - r1.x * a.w_bias - a.v_biasy);
+
+		var vrn = vdot2(vrx, vry, n.x, n.y);
+		//var vrt = vdot(vadd(vr, surface_vr), vperp(n));
+		var vrt = vdot2(vrx + surface_vr.x, vry + surface_vr.y, -n.y, n.x);
+		
+		var jbn = (con.bias - vbn)*nMass;
+		var jbnOld = con.jBias;
+		con.jBias = max(jbnOld + jbn, 0);
+		
+		var jn = -(con.bounce + vrn)*nMass;
+		var jnOld = con.jnAcc;
+		con.jnAcc = max(jnOld + jn, 0);
+		
+		var jtMax = friction*con.jnAcc;
+		var jt = -vrt*con.tMass;
+		var jtOld = con.jtAcc;
+		con.jtAcc = clamp(jtOld + jt, -jtMax, jtMax);
+		
+		//apply_bias_impulses(a, b, r1, r2, vmult(n, con.jBias - jbnOld));
+		var bias_x = n.x * (con.jBias - jbnOld);
+		var bias_y = n.y * (con.jBias - jbnOld);
+		apply_bias_impulse(a, -bias_x, -bias_y, r1);
+		apply_bias_impulse(b, bias_x, bias_y, r2);
+
+		//apply_impulses(a, b, r1, r2, vrotate(n, new Vect(con.jnAcc - jnOld, con.jtAcc - jtOld)));
+		var rot_x = con.jnAcc - jnOld;
+		var rot_y = con.jtAcc - jtOld;
+
+		// Inlining apply_impulses decreases speed for some reason :/
+		apply_impulses(a, b, r1, r2, n.x*rot_x - n.y*rot_y, n.x*rot_y + n.y*rot_x);
+	}
+};
+
+/**
+ * @function
+ * @param	{cp.Space}	space
+ */
+Arbiter.prototype.callSeparate = function(space)
+{
+	// The handler needs to be looked up again as the handler cached on the arbiter may have been deleted since the last step.
+	var handler = space.lookupHandler(this.a.collision_type, this.b.collision_type);
+	handler.separate(this, space);
+};
+
+// From chipmunk_private.h
+/**
+ * From chipmunk_private.h
+ *
+ * @function
+ * @param	{cp.Body}	body
+ * @return	{Arbiter}
+ */
+Arbiter.prototype.next = function(body)
+{
+	return (this.body_a == body ? this.thread_a_next : this.thread_b_next);
+};
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
@@ -127,7 +691,7 @@ SOFTWARE.</code></pre></article>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:37 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:35 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

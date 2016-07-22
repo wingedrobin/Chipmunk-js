@@ -1,0 +1,3625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PolyShape - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Arbiter.html">Arbiter</a><ul class='methods'><li data-type='method'><a href="Arbiter.html#applyCachedImpulse">applyCachedImpulse</a></li><li data-type='method'><a href="Arbiter.html#applyImpulse">applyImpulse</a></li><li data-type='method'><a href="Arbiter.html#callSeparate">callSeparate</a></li><li data-type='method'><a href="Arbiter.html#getA">getA</a></li><li data-type='method'><a href="Arbiter.html#getB">getB</a></li><li data-type='method'><a href="Arbiter.html#getContactPointSet">getContactPointSet</a></li><li data-type='method'><a href="Arbiter.html#getDepth">getDepth</a></li><li data-type='method'><a href="Arbiter.html#getNormal">getNormal</a></li><li data-type='method'><a href="Arbiter.html#getPoint">getPoint</a></li><li data-type='method'><a href="Arbiter.html#getShapes">getShapes</a></li><li data-type='method'><a href="Arbiter.html#ignore">ignore</a></li><li data-type='method'><a href="Arbiter.html#isFirstContact">isFirstContact</a></li><li data-type='method'><a href="Arbiter.html#next">next</a></li><li data-type='method'><a href="Arbiter.html#preStep">preStep</a></li><li data-type='method'><a href="Arbiter.html#totalImpulse">totalImpulse</a></li><li data-type='method'><a href="Arbiter.html#totalImpulseWithFriction">totalImpulseWithFriction</a></li><li data-type='method'><a href="Arbiter.html#totalKE">totalKE</a></li><li data-type='method'><a href="Arbiter.html#unthread">unthread</a></li><li data-type='method'><a href="Arbiter.html#update">update</a></li></ul></li><li><a href="circleSegmentQuery.html">circleSegmentQuery</a></li><li><a href="Contact.html">Contact</a></li><li><a href="ContactPoint.html">ContactPoint</a></li><li><a href="cp.BB.html">BB</a></li><li><a href="cp.BBTree.html">BBTree</a><ul class='methods'><li data-type='method'><a href="cp.BBTree.html#collideStatic">collideStatic</a></li><li data-type='method'><a href="cp.BBTree.html#contains">contains</a></li><li data-type='method'><a href="cp.BBTree.html#count">count</a></li><li data-type='method'><a href="cp.BBTree.html#each">each</a></li><li data-type='method'><a href="cp.BBTree.html#getBB">getBB</a></li><li data-type='method'><a href="cp.BBTree.html#getStamp">getStamp</a></li><li data-type='method'><a href="cp.BBTree.html#incrementStamp">incrementStamp</a></li><li data-type='method'><a href="cp.BBTree.html#insert">insert</a></li><li data-type='method'><a href="cp.BBTree.html#log">log</a></li><li data-type='method'><a href="cp.BBTree.html#makeNode">makeNode</a></li><li data-type='method'><a href="cp.BBTree.html#makePair">makePair</a></li><li data-type='method'><a href="cp.BBTree.html#optimize">optimize</a></li><li data-type='method'><a href="cp.BBTree.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.BBTree.html#query">query</a></li><li data-type='method'><a href="cp.BBTree.html#reindex">reindex</a></li><li data-type='method'><a href="cp.BBTree.html#reindexObject">reindexObject</a></li><li data-type='method'><a href="cp.BBTree.html#reindexQuery">reindexQuery</a></li><li data-type='method'><a href="cp.BBTree.html#remove">remove</a></li><li data-type='method'><a href="cp.BBTree.html#segmentQuery">segmentQuery</a></li><li data-type='method'><a href="cp.BBTree.html#subtreeRecycle">subtreeRecycle</a></li></ul></li><li><a href="cp.Body.html">Body</a><ul class='methods'><li data-type='method'><a href="cp.Body.html#addShape">addShape</a></li><li data-type='method'><a href="cp.Body.html#applyForce">applyForce</a></li><li data-type='method'><a href="cp.Body.html#applyImpulse">applyImpulse</a></li><li data-type='method'><a href="cp.Body.html#eachArbiter">eachArbiter</a></li><li data-type='method'><a href="cp.Body.html#eachConstraint">eachConstraint</a></li><li data-type='method'><a href="cp.Body.html#eachShape">eachShape</a></li><li data-type='method'><a href="cp.Body.html#getAngVel">getAngVel</a></li><li data-type='method'><a href="cp.Body.html#getPos">getPos</a></li><li data-type='method'><a href="cp.Body.html#getVel">getVel</a></li><li data-type='method'><a href="cp.Body.html#getVelAtLocalPoint">getVelAtLocalPoint</a></li><li data-type='method'><a href="cp.Body.html#getVelAtPoint">getVelAtPoint</a></li><li data-type='method'><a href="cp.Body.html#getVelAtWorldPoint">getVelAtWorldPoint</a></li><li data-type='method'><a href="cp.Body.html#isRogue">isRogue</a></li><li data-type='method'><a href="cp.Body.html#isSleeping">isSleeping</a></li><li data-type='method'><a href="cp.Body.html#kineticEnergy">kineticEnergy</a></li><li data-type='method'><a href="cp.Body.html#local2World">local2World</a></li><li data-type='method'><a href="cp.Body.html#position_func">position_func</a></li><li data-type='method'><a href="cp.Body.html#removeConstraint">removeConstraint</a></li><li data-type='method'><a href="cp.Body.html#removeShape">removeShape</a></li><li data-type='method'><a href="cp.Body.html#resetForces">resetForces</a></li><li data-type='method'><a href="cp.Body.html#setAngle">setAngle</a></li><li data-type='method'><a href="cp.Body.html#setAngleInternal">setAngleInternal</a></li><li data-type='method'><a href="cp.Body.html#setAngVel">setAngVel</a></li><li data-type='method'><a href="cp.Body.html#setMass">setMass</a></li><li data-type='method'><a href="cp.Body.html#setMoment">setMoment</a></li><li data-type='method'><a href="cp.Body.html#setPos">setPos</a></li><li data-type='method'><a href="cp.Body.html#setVel">setVel</a></li><li data-type='method'><a href="cp.Body.html#velocity_func">velocity_func</a></li><li data-type='method'><a href="cp.Body.html#world2Local">world2Local</a></li></ul></li><li><a href="cp.BoxShape.html">BoxShape</a></li><li><a href="cp.CircleShape.html">CircleShape</a><ul class='methods'><li data-type='method'><a href="cp.CircleShape.html#active">active</a></li><li data-type='method'><a href="cp.CircleShape.html#cacheBB">cacheBB</a></li><li data-type='method'><a href="cp.CircleShape.html#cacheData">cacheData</a></li><li data-type='method'><a href="cp.CircleShape.html#getBB">getBB</a></li><li data-type='method'><a href="cp.CircleShape.html#getBody">getBody</a></li><li data-type='method'><a href="cp.CircleShape.html#nearestPointQuery">nearestPointQuery</a></li><li data-type='method'><a href="cp.CircleShape.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.CircleShape.html#segmentQuery">segmentQuery</a></li><li data-type='method'><a href="cp.CircleShape.html#setBody">setBody</a></li><li data-type='method'><a href="cp.CircleShape.html#setCollisionType">setCollisionType</a></li><li data-type='method'><a href="cp.CircleShape.html#setElasticity">setElasticity</a></li><li data-type='method'><a href="cp.CircleShape.html#setFriction">setFriction</a></li><li data-type='method'><a href="cp.CircleShape.html#setLayers">setLayers</a></li><li data-type='method'><a href="cp.CircleShape.html#setSensor">setSensor</a></li><li data-type='method'><a href="cp.CircleShape.html#update">update</a></li></ul></li><li><a href="cp.CollisionHandler.html">CollisionHandler</a><ul class='methods'><li data-type='method'><a href="cp.CollisionHandler.html#begin">begin</a></li><li data-type='method'><a href="cp.CollisionHandler.html#postSolve">postSolve</a></li><li data-type='method'><a href="cp.CollisionHandler.html#preSolve">preSolve</a></li><li data-type='method'><a href="cp.CollisionHandler.html#separate">separate</a></li></ul></li><li><a href="cp.PolyShape.html">PolyShape</a><ul class='methods'><li data-type='method'><a href="cp.PolyShape.html#active">active</a></li><li data-type='method'><a href="cp.PolyShape.html#cacheBB">cacheBB</a></li><li data-type='method'><a href="cp.PolyShape.html#cacheData">cacheData</a></li><li data-type='method'><a href="cp.PolyShape.html#containsVert">containsVert</a></li><li data-type='method'><a href="cp.PolyShape.html#containsVertPartial">containsVertPartial</a></li><li data-type='method'><a href="cp.PolyShape.html#getBB">getBB</a></li><li data-type='method'><a href="cp.PolyShape.html#getBody">getBody</a></li><li data-type='method'><a href="cp.PolyShape.html#getNumVerts">getNumVerts</a></li><li data-type='method'><a href="cp.PolyShape.html#getVert">getVert</a></li><li data-type='method'><a href="cp.PolyShape.html#nearestPointQuery">nearestPointQuery</a></li><li data-type='method'><a href="cp.PolyShape.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.PolyShape.html#segmentQuery">segmentQuery</a></li><li data-type='method'><a href="cp.PolyShape.html#setBody">setBody</a></li><li data-type='method'><a href="cp.PolyShape.html#setCollisionType">setCollisionType</a></li><li data-type='method'><a href="cp.PolyShape.html#setElasticity">setElasticity</a></li><li data-type='method'><a href="cp.PolyShape.html#setFriction">setFriction</a></li><li data-type='method'><a href="cp.PolyShape.html#setLayers">setLayers</a></li><li data-type='method'><a href="cp.PolyShape.html#setSensor">setSensor</a></li><li data-type='method'><a href="cp.PolyShape.html#setVerts">setVerts</a></li><li data-type='method'><a href="cp.PolyShape.html#transformAxes">transformAxes</a></li><li data-type='method'><a href="cp.PolyShape.html#transformVerts">transformVerts</a></li><li data-type='method'><a href="cp.PolyShape.html#update">update</a></li><li data-type='method'><a href="cp.PolyShape.html#valueOnAxis">valueOnAxis</a></li></ul></li><li><a href="cp.SegmentShape.html">SegmentShape</a><ul class='methods'><li data-type='method'><a href="cp.SegmentShape.html#active">active</a></li><li data-type='method'><a href="cp.SegmentShape.html#cacheBB">cacheBB</a></li><li data-type='method'><a href="cp.SegmentShape.html#cacheData">cacheData</a></li><li data-type='method'><a href="cp.SegmentShape.html#getBB">getBB</a></li><li data-type='method'><a href="cp.SegmentShape.html#getBody">getBody</a></li><li data-type='method'><a href="cp.SegmentShape.html#nearestPointQuery">nearestPointQuery</a></li><li data-type='method'><a href="cp.SegmentShape.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.SegmentShape.html#segmentQuery">segmentQuery</a></li><li data-type='method'><a href="cp.SegmentShape.html#setBody">setBody</a></li><li data-type='method'><a href="cp.SegmentShape.html#setCollisionType">setCollisionType</a></li><li data-type='method'><a href="cp.SegmentShape.html#setElasticity">setElasticity</a></li><li data-type='method'><a href="cp.SegmentShape.html#setEndpoints">setEndpoints</a></li><li data-type='method'><a href="cp.SegmentShape.html#setFriction">setFriction</a></li><li data-type='method'><a href="cp.SegmentShape.html#setLayers">setLayers</a></li><li data-type='method'><a href="cp.SegmentShape.html#setNeighbors">setNeighbors</a></li><li data-type='method'><a href="cp.SegmentShape.html#setSensor">setSensor</a></li><li data-type='method'><a href="cp.SegmentShape.html#update">update</a></li></ul></li><li><a href="cp.Shape.html">Shape</a><ul class='methods'><li data-type='method'><a href="cp.Shape.html#active">active</a></li><li data-type='method'><a href="cp.Shape.html#cacheBB">cacheBB</a></li><li data-type='method'><a href="cp.Shape.html#getBB">getBB</a></li><li data-type='method'><a href="cp.Shape.html#getBody">getBody</a></li><li data-type='method'><a href="cp.Shape.html#pointQuery">pointQuery</a></li><li data-type='method'><a href="cp.Shape.html#setBody">setBody</a></li><li data-type='method'><a href="cp.Shape.html#setCollisionType">setCollisionType</a></li><li data-type='method'><a href="cp.Shape.html#setElasticity">setElasticity</a></li><li data-type='method'><a href="cp.Shape.html#setFriction">setFriction</a></li><li data-type='method'><a href="cp.Shape.html#setLayers">setLayers</a></li><li data-type='method'><a href="cp.Shape.html#setSensor">setSensor</a></li><li data-type='method'><a href="cp.Shape.html#update">update</a></li></ul></li><li><a href="cp.Space.html">Space</a><ul class='methods'><li data-type='method'><a href="cp.Space.html#addBody">addBody</a></li><li data-type='method'><a href="cp.Space.html#addCollisionHandler">addCollisionHandler</a></li><li data-type='method'><a href="cp.Space.html#addConstraint">addConstraint</a></li><li data-type='method'><a href="cp.Space.html#addShape">addShape</a></li><li data-type='method'><a href="cp.Space.html#addStaticShape">addStaticShape</a></li><li data-type='method'><a href="cp.Space.html#containsBody">containsBody</a></li><li data-type='method'><a href="cp.Space.html#containsConstraint">containsConstraint</a></li><li data-type='method'><a href="cp.Space.html#containsShape">containsShape</a></li><li data-type='method'><a href="cp.Space.html#eachBody">eachBody</a></li><li data-type='method'><a href="cp.Space.html#eachConstraint">eachConstraint</a></li><li data-type='method'><a href="cp.Space.html#eachShape">eachShape</a></li><li data-type='method'><a href="cp.Space.html#filterArbiters">filterArbiters</a></li><li data-type='method'><a href="cp.Space.html#getCurrentTimeStep">getCurrentTimeStep</a></li><li data-type='method'><a href="cp.Space.html#isLocked">isLocked</a></li><li data-type='method'><a href="cp.Space.html#lookupHandler">lookupHandler</a></li><li data-type='method'><a href="cp.Space.html#reindexShape">reindexShape</a></li><li data-type='method'><a href="cp.Space.html#reindexShapesForBody">reindexShapesForBody</a></li><li data-type='method'><a href="cp.Space.html#reindexStatic">reindexStatic</a></li><li data-type='method'><a href="cp.Space.html#removeBody">removeBody</a></li><li data-type='method'><a href="cp.Space.html#removeCollisionHandler">removeCollisionHandler</a></li><li data-type='method'><a href="cp.Space.html#removeConstraint">removeConstraint</a></li><li data-type='method'><a href="cp.Space.html#removeShape">removeShape</a></li><li data-type='method'><a href="cp.Space.html#removeStaticShape">removeStaticShape</a></li><li data-type='method'><a href="cp.Space.html#setDefaultCollisionHandler">setDefaultCollisionHandler</a></li><li data-type='method'><a href="cp.Space.html#setIterations">setIterations</a></li><li data-type='method'><a href="cp.Space.html#uncacheArbiter">uncacheArbiter</a></li><li data-type='method'><a href="cp.Space.html#useSpatialHash">useSpatialHash</a></li></ul></li><li><a href="cp.SpatialIndex.html">SpatialIndex</a><ul class='methods'><li data-type='method'><a href="cp.SpatialIndex.html#collideStatic">collideStatic</a></li></ul></li><li><a href="cp.Vect.html">Vect</a><ul class='methods'><li data-type='method'><a href="cp.Vect.html#add">add</a></li><li data-type='method'><a href="cp.Vect.html#mult">mult</a></li><li data-type='method'><a href="cp.Vect.html#neg">neg</a></li><li data-type='method'><a href="cp.Vect.html#project">project</a></li><li data-type='method'><a href="cp.Vect.html#rotate">rotate</a></li><li data-type='method'><a href="cp.Vect.html#sub">sub</a></li></ul></li><li><a href="Leaf.html">Leaf</a><ul class='methods'><li data-type='method'><a href="Leaf.html#addPairs">addPairs</a></li><li data-type='method'><a href="Leaf.html#clearPairs">clearPairs</a></li><li data-type='method'><a href="Leaf.html#containsObj">containsObj</a></li><li data-type='method'><a href="Leaf.html#markLeafQuery">markLeafQuery</a></li><li data-type='method'><a href="Leaf.html#markSubtree">markSubtree</a></li><li data-type='method'><a href="Leaf.html#recycle">recycle</a></li><li data-type='method'><a href="Leaf.html#update">update</a></li></ul></li><li><a href="NearestPointQueryInfo.html">NearestPointQueryInfo</a></li><li><a href="Node.html">Node</a><ul class='methods'><li data-type='method'><a href="Node.html#bbArea">bbArea</a></li><li data-type='method'><a href="Node.html#intersectsBB">intersectsBB</a></li><li data-type='method'><a href="Node.html#markLeafQuery">markLeafQuery</a></li><li data-type='method'><a href="Node.html#markSubtree">markSubtree</a></li><li data-type='method'><a href="Node.html#otherChild">otherChild</a></li><li data-type='method'><a href="Node.html#recycle">recycle</a></li><li data-type='method'><a href="Node.html#replaceChild">replaceChild</a></li><li data-type='method'><a href="Node.html#setA">setA</a></li><li data-type='method'><a href="Node.html#setB">setB</a></li></ul></li><li><a href="Pair.html">Pair</a><ul class='methods'><li data-type='method'><a href="Pair.html#recycle">recycle</a></li></ul></li><li><a href="PointQueryExtendedInfo.html">PointQueryExtendedInfo</a></li><li><a href="SegmentQueryInfo.html">SegmentQueryInfo</a><ul class='methods'><li data-type='method'><a href="SegmentQueryInfo.html#hitDist">hitDist</a></li><li data-type='method'><a href="SegmentQueryInfo.html#hitPoint">hitPoint</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="cp.html">cp</a><ul class='methods'><li data-type='method'><a href="cp.html#.areaForCircle">areaForCircle</a></li><li data-type='method'><a href="cp.html#.areaForPoly">areaForPoly</a></li><li data-type='method'><a href="cp.html#.areaForSegment">areaForSegment</a></li><li data-type='method'><a href="cp.html#.bb">bb</a></li><li data-type='method'><a href="cp.html#.BoxShape2">BoxShape2</a></li><li data-type='method'><a href="cp.html#.centroidForPoly">centroidForPoly</a></li><li data-type='method'><a href="cp.html#.collideShapes">collideShapes</a></li><li data-type='method'><a href="cp.html#.convexHull">convexHull</a></li><li data-type='method'><a href="cp.html#.loopIndexes">loopIndexes</a></li><li data-type='method'><a href="cp.html#.momentForBox">momentForBox</a></li><li data-type='method'><a href="cp.html#.momentForBox2">momentForBox2</a></li><li data-type='method'><a href="cp.html#.momentForCircle">momentForCircle</a></li><li data-type='method'><a href="cp.html#.momentForPoly">momentForPoly</a></li><li data-type='method'><a href="cp.html#.momentForSegment">momentForSegment</a></li><li data-type='method'><a href="cp.html#.recenterPoly">recenterPoly</a></li><li data-type='method'><a href="cp.html#.resetShapeIdCounter">resetShapeIdCounter</a></li><li data-type='method'><a href="cp.html#.v">v</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#assert">assert</a></li><li><a href="global.html#assertSoft">assertSoft</a></li><li><a href="global.html#assertSpaceUnlocked">assertSpaceUnlocked</a></li><li><a href="global.html#bbArea">bbArea</a></li><li><a href="global.html#bbClampVect">bbClampVect</a></li><li><a href="global.html#bbContainsBB">bbContainsBB</a></li><li><a href="global.html#bbContainsVect">bbContainsVect</a></li><li><a href="global.html#bbContainsVect2">bbContainsVect2</a></li><li><a href="global.html#bbExpand">bbExpand</a></li><li><a href="global.html#bbIntersects">bbIntersects</a></li><li><a href="global.html#bbIntersects2">bbIntersects2</a></li><li><a href="global.html#bbIntersectsSegment">bbIntersectsSegment</a></li><li><a href="global.html#bbMerge">bbMerge</a></li><li><a href="global.html#bbMergedArea">bbMergedArea</a></li><li><a href="global.html#bbMergedArea2">bbMergedArea2</a></li><li><a href="global.html#bbNewForCircle">bbNewForCircle</a></li><li><a href="global.html#bbProximity">bbProximity</a></li><li><a href="global.html#bbTreeIntersectsNode">bbTreeIntersectsNode</a></li><li><a href="global.html#bbTreeMergedArea">bbTreeMergedArea</a></li><li><a href="global.html#bbTreeMergedArea2">bbTreeMergedArea2</a></li><li><a href="global.html#bbWrapVect">bbWrapVect</a></li><li><a href="global.html#circle2circle">circle2circle</a></li><li><a href="global.html#circle2circleQuery">circle2circleQuery</a></li><li><a href="global.html#circle2poly">circle2poly</a></li><li><a href="global.html#circle2segment">circle2segment</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#clamp01">clamp01</a></li><li><a href="global.html#closestPointOnSegment">closestPointOnSegment</a></li><li><a href="global.html#closestPointOnSegment2">closestPointOnSegment2</a></li><li><a href="global.html#componentActivate">componentActivate</a></li><li><a href="global.html#componentActive">componentActive</a></li><li><a href="global.html#componentAdd">componentAdd</a></li><li><a href="global.html#componentRoot">componentRoot</a></li><li><a href="global.html#CP_MAX_CONTACTS_PER_ARBITER">CP_MAX_CONTACTS_PER_ARBITER</a></li><li><a href="global.html#createStaticBody">createStaticBody</a></li><li><a href="global.html#defaultCollisionHandler">defaultCollisionHandler</a></li><li><a href="global.html#deleteObjFromList">deleteObjFromList</a></li><li><a href="global.html#filterConstraints">filterConstraints</a></li><li><a href="global.html#findMSA">findMSA</a></li><li><a href="global.html#findPointsBehindSeg">findPointsBehindSeg</a></li><li><a href="global.html#findVerts">findVerts</a></li><li><a href="global.html#findVertsFallback">findVertsFallback</a></li><li><a href="global.html#floodFillComponent">floodFillComponent</a></li><li><a href="global.html#hashPair">hashPair</a></li><li><a href="global.html#last_MSA_min">last_MSA_min</a></li><li><a href="global.html#lerp">lerp</a></li><li><a href="global.html#lerpconst">lerpconst</a></li><li><a href="global.html#mymax">mymax</a></li><li><a href="global.html#mymin">mymin</a></li><li><a href="global.html#nodeRender">nodeRender</a></li><li><a href="global.html#nodeSegmentQuery">nodeSegmentQuery</a></li><li><a href="global.html#NONE">NONE</a></li><li><a href="global.html#numContacts">numContacts</a></li><li><a href="global.html#numLeaves">numLeaves</a></li><li><a href="global.html#numNodes">numNodes</a></li><li><a href="global.html#numPairs">numPairs</a></li><li><a href="global.html#pairInsert">pairInsert</a></li><li><a href="global.html#partitionNodes">partitionNodes</a></li><li><a href="global.html#poly2poly">poly2poly</a></li><li><a href="global.html#polyValidate">polyValidate</a></li><li><a href="global.html#QHullPartition">QHullPartition</a></li><li><a href="global.html#QHullReduce">QHullReduce</a></li><li><a href="global.html#return%257Bboolean%257D">return	{boolean}</a></li><li><a href="global.html#seg2poly">seg2poly</a></li><li><a href="global.html#segValueOnAxis">segValueOnAxis</a></li><li><a href="global.html#shapeIDCounter">shapeIDCounter</a></li><li><a href="global.html#SplittingPlane">SplittingPlane</a></li><li><a href="global.html#subtreeInsert">subtreeInsert</a></li><li><a href="global.html#subtreeQuery">subtreeQuery</a></li><li><a href="global.html#subtreeRemove">subtreeRemove</a></li><li><a href="global.html#subtreeSegmentQuery">subtreeSegmentQuery</a></li><li><a href="global.html#SWAP">SWAP</a></li><li><a href="global.html#unlinkThread">unlinkThread</a></li><li><a href="global.html#unthreadHelper">unthreadHelper</a></li><li><a href="global.html#updateFunc">updateFunc</a></li><li><a href="global.html#vcross2">vcross2</a></li><li><a href="global.html#vdot2">vdot2</a></li><li><a href="global.html#voidQueryFunc">voidQueryFunc</a></li><li><a href="global.html#vzero">vzero</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">PolyShape</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="cp.html">cp</a>.</span>
+        
+        PolyShape
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="PolyShape"><span class="type-signature"></span>new PolyShape<span class="signature">(body, verts, offset)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Initialize a polygon shape.The vertexes must be convex and have a clockwise winding.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>verts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="cp.Shape.html">cp.Shape</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="collisionCode"><span class="type-signature">(static, constant) </span>PolyShape#collisionCode<span class="type-signature"> :number</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpCollision.js.html">cpCollision.js</a>, <a href="cpCollision.js.html#line491">line 491</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="collisionTable"><span class="type-signature">(static, constant) </span>PolyShape#collisionTable<span class="type-signature"> :Array.&lt;function()></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpCollision.js.html">cpCollision.js</a>, <a href="cpCollision.js.html#line517">line 517</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;function()></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="active"><span class="type-signature"></span>active<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line149">line 149</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#active">cp.Shape#active</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="cacheBB"><span class="type-signature"></span>cacheBB<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line169">line 169</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#cacheBB">cp.Shape#cacheBB</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="cacheData"><span class="type-signature"></span>cacheData<span class="signature">(p, rot)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line236">line 236</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>p</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rot</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="containsVert"><span class="type-signature"></span>containsVert<span class="signature">(vx, vy)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line337">line 337</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="containsVertPartial"><span class="type-signature"></span>containsVertPartial<span class="signature">(vx, vy, n)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line357">line 357</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getBB"><span class="type-signature"></span>getBB<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="cp.BB.html">cp.BB</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#getBB">cp.Shape#getBB</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="cp.BB.html">cp.BB</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getBody"><span class="type-signature"></span>getBody<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="cp.Body.html">cp.Body</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line143">line 143</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#getBody">cp.Shape#getBody</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getNumVerts"><span class="type-signature"></span>getNumVerts<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line378">line 378</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getVert"><span class="type-signature"></span>getVert<span class="signature">(i)</span><span class="type-signature"> &rarr; {<a href="cp.Vect.html">cp.Vect</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line385">line 385</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="nearestPointQuery"><span class="type-signature"></span>nearestPointQuery<span class="signature">(p)</span><span class="type-signature"> &rarr; {<a href="NearestPointQueryInfo.html">NearestPointQueryInfo</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line247">line 247</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>p</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="NearestPointQueryInfo.html">NearestPointQueryInfo</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="pointQuery"><span class="type-signature"></span>pointQuery<span class="signature">(p)</span><span class="type-signature"> &rarr; {<a href="NearestPointQueryInfo.html">NearestPointQueryInfo</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line191">line 191</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#pointQuery">cp.Shape#pointQuery</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>p</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="NearestPointQueryInfo.html">NearestPointQueryInfo</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="segmentQuery"><span class="type-signature"></span>segmentQuery<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {<a href="SegmentQueryInfo.html">SegmentQueryInfo</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line284">line 284</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="SegmentQueryInfo.html">SegmentQueryInfo</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setBody"><span class="type-signature"></span>setBody<span class="signature">(body)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line159">line 159</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#setBody">cp.Shape#setBody</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Body.html">cp.Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setCollisionType"><span class="type-signature"></span>setCollisionType<span class="signature">(collision_type)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line137">line 137</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#setCollisionType">cp.Shape#setCollisionType</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>collision_type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setElasticity"><span class="type-signature"></span>setElasticity<span class="signature">(e)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#setElasticity">cp.Shape#setElasticity</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">How bouncy this shape is.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setFriction"><span class="type-signature"></span>setFriction<span class="signature">(u)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#setFriction">cp.Shape#setFriction</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>u</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">How much friction this shape has.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setLayers"><span class="type-signature"></span>setLayers<span class="signature">(layers)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line125">line 125</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#setLayers">cp.Shape#setLayers</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>layers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setSensor"><span class="type-signature"></span>setSensor<span class="signature">(sensor)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line131">line 131</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#setSensor">cp.Shape#setSensor</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sensor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setVerts"><span class="type-signature"></span>setVerts<span class="signature">(verts, offset)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>verts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>offset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="transformAxes"><span class="type-signature"></span>transformAxes<span class="signature">(p, rot)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>p</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rot</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="transformVerts"><span class="type-signature"></span>transformVerts<span class="signature">(p, rot)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>p</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rot</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">(pos, rot)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpShape.js.html">cpShape.js</a>, <a href="cpShape.js.html#line179">line 179</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="cp.Shape.html#update">cp.Shape#update</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pos</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rot</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="valueOnAxis"><span class="type-signature"></span>valueOnAxis<span class="signature">(n, d)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cpPolyShape.js.html">cpPolyShape.js</a>, <a href="cpPolyShape.js.html#line319">line 319</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="cp.Vect.html">cp.Vect</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>d</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:41 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

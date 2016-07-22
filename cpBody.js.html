@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>cpBody.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,97 +27,550 @@
 
 <div id="main">
     
+    <h1 class="page-title">cpBody.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* Copyright (c) 2007 Scott Lembcke
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
+/// @defgroup cpBody cpBody
+/// Chipmunk's rigid body type. Rigid bodies hold the physical properties of an object like
+/// it's mass, and position and velocity of it's center of gravity. They don't have an shape on their own.
+/// They are given a shape by creating collision shapes (cpShape) that point to the body.
+/// @{
 
+/**
+ * @class
+ * @memberof	cp
+ * @param	{number}	m	Mass of the body.
+ * @param	{number}	i	Moment of inertia of the body.
+ */
+var Body = cp.Body = function(m, i) {
+	/// Mass of the body.
+	/// Must agree with cpBody.m_inv! Use body.setMass() when changing the mass for this reason.
+	//this.m;
+	/// Mass inverse.
+	//this.m_inv;
 
+	/// Moment of inertia of the body.
+	/// Must agree with cpBody.i_inv! Use body.setMoment() when changing the moment for this reason.
+	//this.i;
+	/// Moment of inertia inverse.
+	//this.i_inv;
 
+	/// Position of the rigid body's center of gravity.
+	this.p = new Vect(0,0);
+	/// Velocity of the rigid body's center of gravity.
+	this.vx = this.vy = 0;
+	/// Force acting on the rigid body's center of gravity.
+	this.f = new Vect(0,0);
 
+	/// Rotation of the body around it's center of gravity in radians.
+	/// Must agree with cpBody.rot! Use cpBodySetAngle() when changing the angle for this reason.
+	//this.a;
+	/// Angular velocity of the body around it's center of gravity in radians/second.
+	this.w = 0;
+	/// Torque applied to the body around it's center of gravity.
+	this.t = 0;
 
+	/// Cached unit length vector representing the angle of the body.
+	/// Used for fast rotations using cpvrotate().
+	//cpVect rot;
 
+	/// Maximum velocity allowed when updating the velocity.
+	this.v_limit = Infinity;
+	/// Maximum rotational rate (in radians/second) allowed when updating the angular velocity.
+	this.w_limit = Infinity;
 
+	// This stuff is all private.
+	this.v_biasx = this.v_biasy = 0;
+	this.w_bias = 0;
 
-    
+	this.space = null;
 
+	this.shapeList = [];
+	this.arbiterList = null; // These are both wacky linked lists.
+	this.constraintList = null;
 
-    <section class="readme">
-        <article><h1>Chipmunk for Javascript!</h1><p>This is a port of the <a href="http://chipmunk-physics.net/">Chipmunk Physics</a> library to Javascript!</p>
-<p>Check out the sexy <a href="http://dl.dropbox.com/u/2494815/demo/index.html">demos</a>! (Surprisingly, works best in Safari)</p>
-<h2>Caveats</h2><ul>
-<li>It is slower than the C version (duh, its in javascript). Specifically, physics simulations using chipmunk-js runs about 3 times slower than the C equivalent.</li>
-<li>I haven't implemented chipmunk's spatial hash, and I have no intention to do so.</li>
-<li>The feature set is lagged a little from the real Chipmunk library. Chipmunk-js currently corresponds to Chipmunk <em>6.1.1</em> published in August 2012.</li>
-</ul>
-<h1>Usage</h1><p>The API for Chipmunk-js is almost identical to chipmunk-physics. Except:</p>
-<ul>
-<li>The <code>cp</code> prefix has been replaced by a <code>cp</code> namespace. (Eg, <code>cpvadd(a, b)</code> becomes <code>cp.vadd(a, b)</code>.)</li>
-<li>Most functions are wrapped by their containing objects</li>
-<li><p>Some functions took an array-and-length. Arrays are now all simply javascript arrays, and the length argument has been removed. Eg:</p>
-<pre class="prettyprint source lang-c"><code>cpMomentForPoly(mass, numVerts, *verts, offset);</code></pre><p>  becomes:</p>
-<pre class="prettyprint source lang-javascript"><code>cp.momentForPoly(mass, verts, offset);</code></pre></li>
-<li><p>Lots of trivial getters and setters have been removed.</p>
-</li>
-<li>Lists of verticies are described using a flattened JS array of <code>[x1,y1, x2,y2, ...]</code> instead of an array of objects. For example, use <code>[0,0, 0,1, 1,1, 1,0]</code> instead of <code>[cp.v(0,0), cp.v(0,1), cp.v(1,1), cp.v(1,0)]</code>.</li>
-</ul>
-<h2>On a website</h2><pre class="prettyprint source lang-html"><code>&lt;script src=&quot;cp.min.js&quot;>&lt;/script>
+	// This stuff is used to track information on the collision graph.
+	this.nodeRoot = null;
+	this.nodeNext = null;
+	this.nodeIdleTime = 0;
 
-&lt;script>
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...
-&lt;/script></code></pre><p>If any exceptions are thrown or anything, use <code>cp.js</code> instead of cp.min.js and post the stack trace you get to the issue page.</p>
-<h2>From nodejs</h2><p><code>npm install chipmunk</code></p>
-<pre class="prettyprint source lang-javascript"><code>cp = require('chipmunk');
+	// Set this.m and this.m_inv
+	this.setMass(m);
 
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...</code></pre><h1>Example</h1><p>This code creates a new space, sets 10 physics iterations per update (these increase simulation stability). Then it adds a bunch of line segments to the space.</p>
-<p>In C, this code looked like:</p>
-<pre class="prettyprint source lang-C"><code>  cpSpace *space = cpSpaceNew();
-  space->iterations = 10;
+	// Set this.i and this.i_inv
+	this.setMoment(i);
 
-  cpVect offset = cpv(-320, -240);
-  for(int i=0; i&lt;(bouncy_terrain_count - 1); i++){
-    cpVect a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    cpShape *shape = cpSpaceAddShape(space, cpSegmentShapeNew(cpSpaceGetStaticBody(space), cpvadd(a, offset), cpvadd(b, offset), 0.0f));
-    cpShapeSetElasticity(shape, 1.0f);
-  }</code></pre><p>In javascript, the equivalent code is:</p>
-<pre class="prettyprint source lang-javascript"><code>  var space = new cp.Space();
-  space.iterations = 10;
+	// Set this.a and this.rot
+	this.rot = new Vect(0,0);
+	this.setAngle(0);
+};
 
-  var offset = cp.v(-320, -240);
-  for(var i=0; i&lt;(bouncy_terrain_verts.length - 1); i++){
-    var a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    var shape = space.addShape(new cp.SegmentShape(space.staticBody, cp.vadd(a, offset), cp.vadd(b, offset), 0));
-    shape.setElasticity(1);
-  }</code></pre><h1>License</h1><p>Like Chipmunk, chipmunk-js is MIT licensed.</p>
-<pre class="prettyprint source"><code>Copyright (c) 2007 Scott Lembcke and Joseph Gentle
+// I wonder if this should use the constructor style like Body...
+/**
+ * @function
+ * @return	{cp.Body}
+ */
+var createStaticBody = function()
+{
+	var body = new Body(Infinity, Infinity);
+	body.nodeIdleTime = Infinity;
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+	return body;
+};
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+if (typeof DEBUG !== 'undefined' &amp;&amp; DEBUG) {
+	var v_assert_nan = function(v, message){assert(v.x == v.x &amp;&amp; v.y == v.y, message); };
+	var v_assert_infinite = function(v, message){assert(Math.abs(v.x) !== Infinity &amp;&amp; Math.abs(v.y) !== Infinity, message);};
+	var v_assert_sane = function(v, message){v_assert_nan(v, message); v_assert_infinite(v, message);};
 
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</code></pre></article>
+	Body.prototype.sanityCheck = function()
+	{
+		assert(this.m === this.m &amp;&amp; this.m_inv === this.m_inv, "Body's mass is invalid.");
+		assert(this.i === this.i &amp;&amp; this.i_inv === this.i_inv, "Body's moment is invalid.");
+
+		v_assert_sane(this.p, "Body's position is invalid.");
+		v_assert_sane(this.f, "Body's force is invalid.");
+		assert(this.vx === this.vx &amp;&amp; Math.abs(this.vx) !== Infinity, "Body's velocity is invalid.");
+		assert(this.vy === this.vy &amp;&amp; Math.abs(this.vy) !== Infinity, "Body's velocity is invalid.");
+
+		assert(this.a === this.a &amp;&amp; Math.abs(this.a) !== Infinity, "Body's angle is invalid.");
+		assert(this.w === this.w &amp;&amp; Math.abs(this.w) !== Infinity, "Body's angular velocity is invalid.");
+		assert(this.t === this.t &amp;&amp; Math.abs(this.t) !== Infinity, "Body's torque is invalid.");
+
+		v_assert_sane(this.rot, "Body's rotation vector is invalid.");
+
+		assert(this.v_limit === this.v_limit, "Body's velocity limit is invalid.");
+		assert(this.w_limit === this.w_limit, "Body's angular velocity limit is invalid.");
+	};
+} else {
+	Body.prototype.sanityCheck = function(){};
+}
+
+/**
+ * @function
+ * @return	{cp.Vect}
+ */
+Body.prototype.getPos = function() { return this.p; };
+
+/**
+ * @function
+ * @return	{cp.Vect}
+ */
+Body.prototype.getVel = function() { return new Vect(this.vx, this.vy); };
+
+/**
+ * @function
+ * @return	{number}
+ */
+Body.prototype.getAngVel = function() { return this.w; };
+
+/// Returns true if the body is sleeping.
+/**
+ * Returns true if the body is sleeping.
+ *
+ * @function
+ * @return	{boolean}
+ */
+Body.prototype.isSleeping = function()
+{
+	return this.nodeRoot !== null;
+};
+
+/// Returns true if the body is static.
+/**
+ * Returns true if the body is static.
+ *
+ * @function
+ * return	{boolean}
+ */
+Body.prototype.isStatic = function()
+{
+	return this.nodeIdleTime === Infinity;
+};
+
+/// Returns true if the body has not been added to a space.
+/**
+ * Returns true if the body has not been added to a space.
+ *
+ * @function
+ * @return	{boolean}
+ */
+Body.prototype.isRogue = function()
+{
+	return this.space === null;
+};
+
+// It would be nicer to use defineProperty for this, but its about 30x slower:
+// http://jsperf.com/defineproperty-vs-setter
+/**
+ * @function
+ * @param	{number}	mass
+ */
+Body.prototype.setMass = function(mass)
+{
+	assert(mass > 0, "Mass must be positive and non-zero.");
+
+	//activate is defined in cpSpaceComponent
+	this.activate();
+	this.m = mass;
+	this.m_inv = 1/mass;
+};
+
+/**
+ * @function
+ * @param	{number}	moment
+ */
+Body.prototype.setMoment = function(moment)
+{
+	assert(moment > 0, "Moment of Inertia must be positive and non-zero.");
+
+	this.activate();
+	this.i = moment;
+	this.i_inv = 1/moment;
+};
+
+/**
+ * @function
+ * @param	{cp.Shape}	shape
+ */
+Body.prototype.addShape = function(shape)
+{
+	this.shapeList.push(shape);
+};
+
+/**
+ * @function
+ * @param	{cp.Shape}	shape
+ */
+Body.prototype.removeShape = function(shape)
+{
+	// This implementation has a linear time complexity with the number of shapes.
+	// The original implementation used linked lists instead, which might be faster if
+	// you're constantly editing the shape of a body. I expect most bodies will never
+	// have their shape edited, so I'm just going to use the simplest possible implemention.
+	deleteObjFromList(this.shapeList, shape);
+};
+
+/**
+ * @function
+ * @param	{cp.Constraint}	node
+ * @param	{cp.Body}	body
+ * @param	{cp.Constraint}	filter
+ * @return	{cp.Constraint}
+ */
+var filterConstraints = function(node, body, filter)
+{
+	if(node === filter){
+		return node.next(body);
+	} else if(node.a === body){
+		node.next_a = filterConstraints(node.next_a, body, filter);
+	} else {
+		node.next_b = filterConstraints(node.next_b, body, filter);
+	}
+
+	return node;
+};
+
+/**
+ * @function
+ * @param	{cp.Constraint}	constraint
+ */
+Body.prototype.removeConstraint = function(constraint)
+{
+	// The constraint must be in the constraints list when this is called.
+	this.constraintList = filterConstraints(this.constraintList, this, constraint);
+};
+
+/**
+ * @function
+ * @param	{cp.Vect}	pos
+ */
+Body.prototype.setPos = function(pos)
+{
+	this.activate();
+	this.sanityCheck();
+	// If I allow the position to be set to vzero, vzero will get changed.
+	if (pos === vzero) {
+		pos = cp.v(0,0);
+	}
+	this.p = pos;
+};
+
+/**
+ * @function
+ * @param	{cp.Vect}	velocity
+ */
+Body.prototype.setVel = function(velocity)
+{
+	this.activate();
+	this.vx = velocity.x;
+	this.vy = velocity.y;
+};
+
+/**
+ * @function
+ * @param	{number}	w
+ */
+Body.prototype.setAngVel = function(w)
+{
+	this.activate();
+	this.w = w;
+};
+
+/**
+ * @function
+ * @param	{number}	angle
+ */
+Body.prototype.setAngleInternal = function(angle)
+{
+	assert(!isNaN(angle), "Internal Error: Attempting to set body's angle to NaN");
+	this.a = angle;//fmod(a, (cpFloat)M_PI*2.0f);
+
+	//this.rot = vforangle(angle);
+	this.rot.x = Math.cos(angle);
+	this.rot.y = Math.sin(angle);
+};
+
+/**
+ * @function
+ * @param	{number}	angle
+ */
+Body.prototype.setAngle = function(angle)
+{
+	this.activate();
+	this.sanityCheck();
+	this.setAngleInternal(angle);
+};
+
+/**
+ * @function
+ * @param	{cp.Vect}	gravity
+ * @param	{number}	damping
+ * @param	{number}	dt
+ */
+Body.prototype.velocity_func = function(gravity, damping, dt)
+{
+	//this.v = vclamp(vadd(vmult(this.v, damping), vmult(vadd(gravity, vmult(this.f, this.m_inv)), dt)), this.v_limit);
+	var vx = this.vx * damping + (gravity.x + this.f.x * this.m_inv) * dt;
+	var vy = this.vy * damping + (gravity.y + this.f.y * this.m_inv) * dt;
+
+	//var v = vclamp(new Vect(vx, vy), this.v_limit);
+	//this.vx = v.x; this.vy = v.y;
+	var v_limit = this.v_limit;
+	var lensq = vx * vx + vy * vy;
+	var scale = (lensq > v_limit*v_limit) ? v_limit / Math.sqrt(lensq) : 1;
+	this.vx = vx * scale;
+	this.vy = vy * scale;
+
+	var w_limit = this.w_limit;
+	this.w = clamp(this.w*damping + this.t*this.i_inv*dt, -w_limit, w_limit);
+
+	this.sanityCheck();
+};
+
+/**
+ * @function
+ * @param	{number}	dt
+ */
+Body.prototype.position_func = function(dt)
+{
+	//this.p = vadd(this.p, vmult(vadd(this.v, this.v_bias), dt));
+
+	//this.p = this.p + (this.v + this.v_bias) * dt;
+	this.p.x += (this.vx + this.v_biasx) * dt;
+	this.p.y += (this.vy + this.v_biasy) * dt;
+
+	this.setAngleInternal(this.a + (this.w + this.w_bias)*dt);
+
+	this.v_biasx = this.v_biasy = 0;
+	this.w_bias = 0;
+
+	this.sanityCheck();
+};
+
+/**
+ * @function
+ */
+Body.prototype.resetForces = function()
+{
+	this.activate();
+	this.f = new Vect(0,0);
+	this.t = 0;
+};
+
+/**
+ * @function
+ * @param	{cp.Vect}	force
+ * @param	{cp.Vect}	r
+ */
+Body.prototype.applyForce = function(force, r)
+{
+	this.activate();
+	this.f = vadd(this.f, force);
+	this.t += vcross(r, force);
+};
+
+/**
+ * @function
+ * @param	{cp.Vect}	j
+ * @param	{cp.Vect}	r
+ */
+Body.prototype.applyImpulse = function(j, r)
+{
+	this.activate();
+	apply_impulse(this, j.x, j.y, r);
+};
+
+/**
+ * @function
+ * @param	{cp.Vect}	r
+ * @return	{cp.Vect}
+ */
+Body.prototype.getVelAtPoint = function(r)
+{
+	return vadd(new Vect(this.vx, this.vy), vmult(vperp(r), this.w));
+};
+
+/// Get the velocity on a body (in world units) at a point on the body in world coordinates.
+/**
+ * Get the velocity on a body (in world units) at a point on the body in world coordinates.
+ *
+ * @function
+ * @param	{cp.Vect}	point
+ * @return	{cp.Vect}
+ */
+Body.prototype.getVelAtWorldPoint = function(point)
+{
+	return this.getVelAtPoint(vsub(point, this.p));
+};
+
+/// Get the velocity on a body (in world units) at a point on the body in local coordinates.
+/**
+ * Get the velocity on a body (in world units) at a point on the body in local coordinates.
+ *
+ * @function
+ * @param	{cp.Vect}	point
+ * @return	{cp.Vect}
+ */
+Body.prototype.getVelAtLocalPoint = function(point)
+{
+	return this.getVelAtPoint(vrotate(point, this.rot));
+};
+
+/**
+ * @function
+ * @param	{function}	func
+ */
+Body.prototype.eachShape = function(func)
+{
+	for(var i = 0, len = this.shapeList.length; i &lt; len; i++) {
+		func(this.shapeList[i]);
+	}
+};
+
+/**
+ * @function
+ * @param	{function}	func
+ */
+Body.prototype.eachConstraint = function(func)
+{
+	var constraint = this.constraintList;
+	while(constraint) {
+		var next = constraint.next(this);
+		func(constraint);
+		constraint = next;
+	}
+};
+
+/**
+ * @function
+ * @param	{function}	func
+ */
+Body.prototype.eachArbiter = function(func)
+{
+	var arb = this.arbiterList;
+	while(arb){
+		var next = arb.next(this);
+
+		arb.swappedColl = (this === arb.body_b);
+		func(arb);
+
+		arb = next;
+	}
+};
+
+/// Convert body relative/local coordinates to absolute/world coordinates.
+/**
+ * Convert body relative/local coordinates to absolute/world coordinates.
+ *
+ * @function
+ * @param	{cp.Vect}	v
+ * @return	{cp.Vect}
+ */
+Body.prototype.local2World = function(v)
+{
+	return vadd(this.p, vrotate(v, this.rot));
+};
+
+/// Convert body absolute/world coordinates to	relative/local coordinates.
+/**
+ * Convert body absolute/world coordinates to	relative/local coordinates.
+ *
+ * @function
+ * @param	{cp.Vect}	v
+ * @return	{cp.Vect}
+ */
+Body.prototype.world2Local = function(v)
+{
+	return vunrotate(vsub(v, this.p), this.rot);
+};
+
+/// Get the kinetic energy of a body.
+/**
+ * Get the kinetic energy of a body.
+ *
+ * @function
+ * @return	{number}
+ */
+Body.prototype.kineticEnergy = function()
+{
+	// Need to do some fudging to avoid NaNs
+	var vsq = this.vx*this.vx + this.vy*this.vy;
+	var wsq = this.w * this.w;
+	return (vsq ? vsq*this.m : 0) + (wsq ? wsq*this.i : 0);
+};
+
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
@@ -127,7 +580,7 @@ SOFTWARE.</code></pre></article>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:37 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:36 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

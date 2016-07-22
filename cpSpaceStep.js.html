@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>cpSpaceStep.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,97 +27,443 @@
 
 <div id="main">
     
+    <h1 class="page-title">cpSpaceStep.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* Copyright (c) 2007 Scott Lembcke
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
+// **** Post Step Callback Functions
 
+/// Schedule a post-step callback to be called when cpSpaceStep() finishes.
+/**
+ * Schedule a post-step callback to be called when cpSpaceStep() finishes.
+ * 
+ * @function
+ * @param		{function}	func	Post-step callback.
+ */
+Space.prototype.addPostStepCallback = function(func)
+{
+	assertSoft(this.locked,
+		"Adding a post-step callback when the space is not locked is unnecessary. " +
+		"Post-step callbacks will not called until the end of the next call to cpSpaceStep() or the next query.");
 
+	this.postStepCallbacks.push(func);
+};
 
+/**
+ * @function
+ */
+Space.prototype.runPostStepCallbacks = function()
+{
+	// Don't cache length because post step callbacks may add more post step callbacks
+	// directly or indirectly.
+	for(var i = 0; i &lt; this.postStepCallbacks.length; i++){
+		this.postStepCallbacks[i]();
+	}
+	this.postStepCallbacks = [];
+};
 
+// **** Locking Functions
 
+/**
+ * @function
+ */
+Space.prototype.lock = function()
+{
+	this.locked++;
+};
 
+/**
+ * @function
+ * @param	{}	runPostStep
+ */
+Space.prototype.unlock = function(runPostStep)
+{
+	this.locked--;
+	assert(this.locked >= 0, "Internal Error: Space lock underflow.");
 
+	if(this.locked === 0 &amp;&amp; runPostStep){
+		var waking = this.rousedBodies;
+		for(var i=0; i&lt;waking.length; i++){
+			this.activateBody(waking[i]);
+		}
 
-    
+		waking.length = 0;
 
+		this.runPostStepCallbacks();
+	}
+};
 
-    <section class="readme">
-        <article><h1>Chipmunk for Javascript!</h1><p>This is a port of the <a href="http://chipmunk-physics.net/">Chipmunk Physics</a> library to Javascript!</p>
-<p>Check out the sexy <a href="http://dl.dropbox.com/u/2494815/demo/index.html">demos</a>! (Surprisingly, works best in Safari)</p>
-<h2>Caveats</h2><ul>
-<li>It is slower than the C version (duh, its in javascript). Specifically, physics simulations using chipmunk-js runs about 3 times slower than the C equivalent.</li>
-<li>I haven't implemented chipmunk's spatial hash, and I have no intention to do so.</li>
-<li>The feature set is lagged a little from the real Chipmunk library. Chipmunk-js currently corresponds to Chipmunk <em>6.1.1</em> published in August 2012.</li>
-</ul>
-<h1>Usage</h1><p>The API for Chipmunk-js is almost identical to chipmunk-physics. Except:</p>
-<ul>
-<li>The <code>cp</code> prefix has been replaced by a <code>cp</code> namespace. (Eg, <code>cpvadd(a, b)</code> becomes <code>cp.vadd(a, b)</code>.)</li>
-<li>Most functions are wrapped by their containing objects</li>
-<li><p>Some functions took an array-and-length. Arrays are now all simply javascript arrays, and the length argument has been removed. Eg:</p>
-<pre class="prettyprint source lang-c"><code>cpMomentForPoly(mass, numVerts, *verts, offset);</code></pre><p>  becomes:</p>
-<pre class="prettyprint source lang-javascript"><code>cp.momentForPoly(mass, verts, offset);</code></pre></li>
-<li><p>Lots of trivial getters and setters have been removed.</p>
-</li>
-<li>Lists of verticies are described using a flattened JS array of <code>[x1,y1, x2,y2, ...]</code> instead of an array of objects. For example, use <code>[0,0, 0,1, 1,1, 1,0]</code> instead of <code>[cp.v(0,0), cp.v(0,1), cp.v(1,1), cp.v(1,0)]</code>.</li>
-</ul>
-<h2>On a website</h2><pre class="prettyprint source lang-html"><code>&lt;script src=&quot;cp.min.js&quot;>&lt;/script>
+// **** Contact Buffer Functions
 
-&lt;script>
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...
-&lt;/script></code></pre><p>If any exceptions are thrown or anything, use <code>cp.js</code> instead of cp.min.js and post the stack trace you get to the issue page.</p>
-<h2>From nodejs</h2><p><code>npm install chipmunk</code></p>
-<pre class="prettyprint source lang-javascript"><code>cp = require('chipmunk');
+/* josephg:
+ *
+ * This code might be faster in JS than just allocating objects each time - I'm
+ * really not sure. If the contact buffer solution is used, there will also
+ * need to be changes in cpCollision.js to fill a passed array instead of creating
+ * new arrays each time.
+ *
+ * TODO: Benchmark me once chipmunk is working.
+ */
 
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...</code></pre><h1>Example</h1><p>This code creates a new space, sets 10 physics iterations per update (these increase simulation stability). Then it adds a bunch of line segments to the space.</p>
-<p>In C, this code looked like:</p>
-<pre class="prettyprint source lang-C"><code>  cpSpace *space = cpSpaceNew();
-  space->iterations = 10;
+/*
+var ContactBuffer = function(stamp, splice)
+{
+	this.stamp = stamp;
+	// Contact buffers are a circular linked list.
+	this.next = splice ? splice.next : this;
+	this.contacts = [];
+};
 
-  cpVect offset = cpv(-320, -240);
-  for(int i=0; i&lt;(bouncy_terrain_count - 1); i++){
-    cpVect a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    cpShape *shape = cpSpaceAddShape(space, cpSegmentShapeNew(cpSpaceGetStaticBody(space), cpvadd(a, offset), cpvadd(b, offset), 0.0f));
-    cpShapeSetElasticity(shape, 1.0f);
-  }</code></pre><p>In javascript, the equivalent code is:</p>
-<pre class="prettyprint source lang-javascript"><code>  var space = new cp.Space();
-  space.iterations = 10;
+Space.prototype.pushFreshContactBuffer = function()
+{
+	var stamp = this.stamp;
 
-  var offset = cp.v(-320, -240);
-  for(var i=0; i&lt;(bouncy_terrain_verts.length - 1); i++){
-    var a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    var shape = space.addShape(new cp.SegmentShape(space.staticBody, cp.vadd(a, offset), cp.vadd(b, offset), 0));
-    shape.setElasticity(1);
-  }</code></pre><h1>License</h1><p>Like Chipmunk, chipmunk-js is MIT licensed.</p>
-<pre class="prettyprint source"><code>Copyright (c) 2007 Scott Lembcke and Joseph Gentle
+	var head = this.contactBuffersHead;
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+	if(!head){
+		// No buffers have been allocated, make one
+		this.contactBuffersHead = new ContactBuffer(stamp, null);
+	} else if(stamp - head.next.stamp > this.collisionPersistence){
+		// The tail buffer is available, rotate the ring
+		var tail = head.next;
+		tail.stamp = stamp;
+		tail.contacts.length = 0;
+		this.contactBuffersHead = tail;
+	} else {
+		// Allocate a new buffer and push it into the ring
+		var buffer = new ContactBuffer(stamp, head);
+		this.contactBuffersHead = head.next = buffer;
+	}
+};
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+cpContact *
+cpContactBufferGetArray(cpSpace *space)
+{
+	if(space.contactBuffersHead.numContacts + CP_MAX_CONTACTS_PER_ARBITER > CP_CONTACTS_BUFFER_SIZE){
+		// contact buffer could overflow on the next collision, push a fresh one.
+		space.pushFreshContactBuffer();
+	}
 
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</code></pre></article>
+	cpContactBufferHeader *head = space.contactBuffersHead;
+	return ((cpContactBuffer *)head)->contacts + head.numContacts;
+}
+
+void
+cpSpacePushContacts(cpSpace *space, int count)
+{
+	cpAssertHard(count &lt;= CP_MAX_CONTACTS_PER_ARBITER, "Internal Error: Contact buffer overflow!");
+	space.contactBuffersHead.numContacts += count;
+}
+
+static void
+cpSpacePopContacts(cpSpace *space, int count){
+	space.contactBuffersHead.numContacts -= count;
+}
+*/
+
+// **** Collision Detection Functions
+
+/* Use this to re-enable object pools.
+static void *
+cpSpaceArbiterSetTrans(cpShape **shapes, cpSpace *space)
+{
+	if(space.pooledArbiters.num == 0){
+		// arbiter pool is exhausted, make more
+		int count = CP_BUFFER_BYTES/sizeof(cpArbiter);
+		cpAssertHard(count, "Internal Error: Buffer size too small.");
+
+		cpArbiter *buffer = (cpArbiter *)cpcalloc(1, CP_BUFFER_BYTES);
+		cpArrayPush(space.allocatedBuffers, buffer);
+
+		for(int i=0; i&lt;count; i++) cpArrayPush(space.pooledArbiters, buffer + i);
+	}
+
+	return cpArbiterInit((cpArbiter *)cpArrayPop(space.pooledArbiters), shapes[0], shapes[1]);
+}*/
+
+// Callback from the spatial hash.
+/**
+ * Callback from the spatial hash.
+ *
+ * @function
+ * @return	{function}
+ */
+Space.prototype.makeCollideShapes = function()
+{
+	// It would be nicer to use .bind() or something, but this is faster.
+	var space_ = this;
+	return function(a, b){
+		var space = space_;
+
+		// Reject any of the simple cases
+		if(
+			// BBoxes must overlap
+			//!bbIntersects(a.bb, b.bb)
+			!(a.bb_l &lt;= b.bb_r &amp;&amp; b.bb_l &lt;= a.bb_r &amp;&amp; a.bb_b &lt;= b.bb_t &amp;&amp; b.bb_b &lt;= a.bb_t)
+			// Don't collide shapes attached to the same body.
+			|| a.body === b.body
+			// Don't collide objects in the same non-zero group
+			|| (a.group &amp;&amp; a.group === b.group)
+			// Don't collide objects that don't share at least on layer.
+			|| !(a.layers &amp; b.layers)
+		) return;
+
+		var handler = space.lookupHandler(a.collision_type, b.collision_type);
+
+		var sensor = a.sensor || b.sensor;
+		if(sensor &amp;&amp; handler === defaultCollisionHandler) return;
+
+		// Shape 'a' should have the lower shape type. (required by cpCollideShapes() )
+		if(a.collisionCode > b.collisionCode){
+			var temp = a;
+			a = b;
+			b = temp;
+		}
+
+		// Narrow-phase collision detection.
+		//cpContact *contacts = cpContactBufferGetArray(space);
+		//int numContacts = cpCollideShapes(a, b, contacts);
+		var contacts = collideShapes(a, b);
+		if(contacts.length === 0) return; // Shapes are not colliding.
+		//cpSpacePushContacts(space, numContacts);
+
+		// Get an arbiter from space.arbiterSet for the two shapes.
+		// This is where the persistant contact magic comes from.
+		var arbHash = hashPair(a.hashid, b.hashid);
+		var arb = space.cachedArbiters[arbHash];
+		if (!arb){
+			arb = space.cachedArbiters[arbHash] = new Arbiter(a, b);
+		}
+
+		arb.update(contacts, handler, a, b);
+
+		// Call the begin function first if it's the first step
+		if(arb.state == 'first coll' &amp;&amp; !handler.begin(arb, space)){
+			arb.ignore(); // permanently ignore the collision until separation
+		}
+
+		if(
+			// Ignore the arbiter if it has been flagged
+			(arb.state !== 'ignore') &amp;&amp;
+			// Call preSolve
+			handler.preSolve(arb, space) &amp;&amp;
+			// Process, but don't add collisions for sensors.
+			!sensor
+		){
+			space.arbiters.push(arb);
+		} else {
+			//cpSpacePopContacts(space, numContacts);
+
+			arb.contacts = null;
+
+			// Normally arbiters are set as used after calling the post-solve callback.
+			// However, post-solve callbacks are not called for sensors or arbiters rejected from pre-solve.
+			if(arb.state !== 'ignore') arb.state = 'normal';
+		}
+
+		// Time stamp the arbiter so we know it was used recently.
+		arb.stamp = space.stamp;
+	};
+};
+
+// Hashset filter func to throw away old arbiters.
+/**
+ * Hashset filter func to throw away old arbiters.
+ *
+ * @function
+ * @param	{Arbiter}	arb
+ * @return	{boolean}
+ */
+Space.prototype.arbiterSetFilter = function(arb)
+{
+	var ticks = this.stamp - arb.stamp;
+
+	var a = arb.body_a, b = arb.body_b;
+
+	// TODO should make an arbiter state for this so it doesn't require filtering arbiters for
+	// dangling body pointers on body removal.
+	// Preserve arbiters on sensors and rejected arbiters for sleeping objects.
+	// This prevents errant separate callbacks from happenening.
+	if(
+		(a.isStatic() || a.isSleeping()) &amp;&amp;
+		(b.isStatic() || b.isSleeping())
+	){
+		return true;
+	}
+
+	// Arbiter was used last frame, but not this one
+	if(ticks >= 1 &amp;&amp; arb.state != 'cached'){
+		arb.callSeparate(this);
+		arb.state = 'cached';
+	}
+
+	if(ticks >= this.collisionPersistence){
+		arb.contacts = null;
+
+		//cpArrayPush(this.pooledArbiters, arb);
+		return false;
+	}
+
+	return true;
+};
+
+// **** All Important cpSpaceStep() Function
+
+/**
+ * @function
+ * @param	{cp.Shape}	shape
+ */
+var updateFunc = function(shape)
+{
+	var body = shape.body;
+	shape.update(body.p, body.rot);
+};
+
+/// Step the space forward in time by @c dt.
+/**
+ * Step the space forward in time by dt.
+ *
+ * @function
+ * @param	{number}	dt
+ */
+Space.prototype.step = function(dt)
+{
+	// don't step if the timestep is 0!
+	if(dt === 0) return;
+
+	assert(vzero.x === 0 &amp;&amp; vzero.y === 0, "vzero is invalid");
+
+	this.stamp++;
+
+	var prev_dt = this.curr_dt;
+	this.curr_dt = dt;
+
+    var i;
+    var j;
+    var hash;
+	var bodies = this.bodies;
+	var constraints = this.constraints;
+	var arbiters = this.arbiters;
+
+	// Reset and empty the arbiter lists.
+	for(i=0; i&lt;arbiters.length; i++){
+		var arb = arbiters[i];
+		arb.state = 'normal';
+
+		// If both bodies are awake, unthread the arbiter from the contact graph.
+		if(!arb.body_a.isSleeping() &amp;&amp; !arb.body_b.isSleeping()){
+			arb.unthread();
+		}
+	}
+	arbiters.length = 0;
+
+	this.lock(); {
+		// Integrate positions
+		for(i=0; i&lt;bodies.length; i++){
+			bodies[i].position_func(dt);
+		}
+
+		// Find colliding pairs.
+		//this.pushFreshContactBuffer();
+		this.activeShapes.each(updateFunc);
+		this.activeShapes.reindexQuery(this.collideShapes);
+	} this.unlock(false);
+
+	// Rebuild the contact graph (and detect sleeping components if sleeping is enabled)
+	this.processComponents(dt);
+
+	this.lock(); {
+		// Clear out old cached arbiters and call separate callbacks
+		for(hash in this.cachedArbiters) {
+			if(!this.arbiterSetFilter(this.cachedArbiters[hash])) {
+				delete this.cachedArbiters[hash];
+			}
+		}
+
+		// Prestep the arbiters and constraints.
+		var slop = this.collisionSlop;
+		var biasCoef = 1 - Math.pow(this.collisionBias, dt);
+		for(i=0; i&lt;arbiters.length; i++){
+			arbiters[i].preStep(dt, slop, biasCoef);
+		}
+
+		for(i=0; i&lt;constraints.length; i++){
+			var constraint = constraints[i];
+
+			constraint.preSolve(this);
+			constraint.preStep(dt);
+		}
+
+		// Integrate velocities.
+		var damping = Math.pow(this.damping, dt);
+		var gravity = this.gravity;
+		for(i=0; i&lt;bodies.length; i++){
+			bodies[i].velocity_func(gravity, damping, dt);
+		}
+
+		// Apply cached impulses
+		var dt_coef = (prev_dt === 0 ? 0 : dt/prev_dt);
+		for(i=0; i&lt;arbiters.length; i++){
+			arbiters[i].applyCachedImpulse(dt_coef);
+		}
+
+		for(i=0; i&lt;constraints.length; i++){
+			constraints[i].applyCachedImpulse(dt_coef);
+		}
+
+		// Run the impulse solver.
+		for(i=0; i&lt;this.iterations; i++){
+			for(j=0; j&lt;arbiters.length; j++){
+				arbiters[j].applyImpulse();
+			}
+
+			for(j=0; j&lt;constraints.length; j++){
+				constraints[j].applyImpulse();
+			}
+		}
+
+		// Run the constraint post-solve callbacks
+		for(i=0; i&lt;constraints.length; i++){
+			constraints[i].postSolve(this);
+		}
+
+		// run the post-solve callbacks
+		for(i=0; i&lt;arbiters.length; i++){
+			arbiters[i].handler.postSolve(arbiters[i], this);
+		}
+	} this.unlock(true);
+};
+
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
@@ -127,7 +473,7 @@ SOFTWARE.</code></pre></article>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:37 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:36 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

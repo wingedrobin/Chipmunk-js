@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>cpSpaceQuery.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,97 +27,313 @@
 
 <div id="main">
     
+    <h1 class="page-title">cpSpaceQuery.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* Copyright (c) 2007 Scott Lembcke
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
+// Point query functions
 
+/// Query the space at a point and call @c func for each shape found.
+/**
+ * Query the space at a point and call @c func for each shape found.
+ *
+ * @function
+ * @param	{cp.Vect}	point
+ * @param	{number}	layers
+ * @param	{number}	group
+ * @param	{function}	func
+ */
+Space.prototype.pointQuery = function(point, layers, group, func)
+{
+	var helper = function(shape){
+		if(
+			!(shape.group &amp;&amp; group === shape.group) &amp;&amp; (layers &amp; shape.layers) &amp;&amp;
+			shape.pointQuery(point)
+		){
+			func(shape);
+		}
+	};
 
+	var bb = new BB(point.x, point.y, point.x, point.y);
+	this.lock(); {
+		this.activeShapes.query(bb, helper);
+		this.staticShapes.query(bb, helper);
+	} this.unlock(true);
+};
 
+/// Query the space at a point and return the first shape found. Returns null if no shapes were found.
+/**
+ * Query the space at a point and return the first shape found. Returns null if no shapes were found.
+ *
+ * @function
+ * @param	{cp.Vect}	point
+ * @param	{number}	layers
+ * @param	{number}	group
+ * @return	{cp.Shape}
+ */
+Space.prototype.pointQueryFirst = function(point, layers, group)
+{
+	var outShape = null;
+	this.pointQuery(point, layers, group, function(shape) {
+		if(!shape.sensor) outShape = shape;
+	});
+	
+	return outShape;
+};
 
+// Nearest point query functions
 
+/**
+ * @function
+ * @param	{cp.Vect}	point
+ * @param	{number}	maxDistance
+ * @param	{number}	layers
+ * @param	{number}	group
+ * @param	{function}	func
+ */
+Space.prototype.nearestPointQuery = function(point, maxDistance, layers, group, func)
+{
+	var helper = function(shape){
+		if(!(shape.group &amp;&amp; group === shape.group) &amp;&amp; (layers &amp; shape.layers)){
+			var info = shape.nearestPointQuery(point);
 
+			if(info.d &lt; maxDistance) func(shape, info.d, info.p);
+		}
+	};
 
+	var bb = bbNewForCircle(point, maxDistance);
 
-    
+	this.lock(); {
+		this.activeShapes.query(bb, helper);
+		this.staticShapes.query(bb, helper);
+	} this.unlock(true);
+};
 
+// Unlike the version in chipmunk, this returns a NearestPointQueryInfo object. Use its .shape
+// property to get the actual shape.
+/**
+ * Unlike the version in chipmunk, this returns a NearestPointQueryInfo object. Use its .shape
+ * property to get the actual shape.
+ *
+ * @function
+ * @param	{cp.Vect}		point
+ * @param	{number}		maxDistance
+ * @param	{number}		layers
+ * @param	{number}		group
+ * @return	{NearestPointQueryInfo}
+ */
+Space.prototype.nearestPointQueryNearest = function(point, maxDistance, layers, group)
+{
+	var out;
 
-    <section class="readme">
-        <article><h1>Chipmunk for Javascript!</h1><p>This is a port of the <a href="http://chipmunk-physics.net/">Chipmunk Physics</a> library to Javascript!</p>
-<p>Check out the sexy <a href="http://dl.dropbox.com/u/2494815/demo/index.html">demos</a>! (Surprisingly, works best in Safari)</p>
-<h2>Caveats</h2><ul>
-<li>It is slower than the C version (duh, its in javascript). Specifically, physics simulations using chipmunk-js runs about 3 times slower than the C equivalent.</li>
-<li>I haven't implemented chipmunk's spatial hash, and I have no intention to do so.</li>
-<li>The feature set is lagged a little from the real Chipmunk library. Chipmunk-js currently corresponds to Chipmunk <em>6.1.1</em> published in August 2012.</li>
-</ul>
-<h1>Usage</h1><p>The API for Chipmunk-js is almost identical to chipmunk-physics. Except:</p>
-<ul>
-<li>The <code>cp</code> prefix has been replaced by a <code>cp</code> namespace. (Eg, <code>cpvadd(a, b)</code> becomes <code>cp.vadd(a, b)</code>.)</li>
-<li>Most functions are wrapped by their containing objects</li>
-<li><p>Some functions took an array-and-length. Arrays are now all simply javascript arrays, and the length argument has been removed. Eg:</p>
-<pre class="prettyprint source lang-c"><code>cpMomentForPoly(mass, numVerts, *verts, offset);</code></pre><p>  becomes:</p>
-<pre class="prettyprint source lang-javascript"><code>cp.momentForPoly(mass, verts, offset);</code></pre></li>
-<li><p>Lots of trivial getters and setters have been removed.</p>
-</li>
-<li>Lists of verticies are described using a flattened JS array of <code>[x1,y1, x2,y2, ...]</code> instead of an array of objects. For example, use <code>[0,0, 0,1, 1,1, 1,0]</code> instead of <code>[cp.v(0,0), cp.v(0,1), cp.v(1,1), cp.v(1,0)]</code>.</li>
-</ul>
-<h2>On a website</h2><pre class="prettyprint source lang-html"><code>&lt;script src=&quot;cp.min.js&quot;>&lt;/script>
+	var helper = function(shape){
+		if(!(shape.group &amp;&amp; group === shape.group) &amp;&amp; (layers &amp; shape.layers) &amp;&amp; !shape.sensor){
+			var info = shape.nearestPointQuery(point);
 
-&lt;script>
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...
-&lt;/script></code></pre><p>If any exceptions are thrown or anything, use <code>cp.js</code> instead of cp.min.js and post the stack trace you get to the issue page.</p>
-<h2>From nodejs</h2><p><code>npm install chipmunk</code></p>
-<pre class="prettyprint source lang-javascript"><code>cp = require('chipmunk');
+			if(info.d &lt; maxDistance &amp;&amp; (!out || info.d &lt; out.d)) out = info;
+		}
+	};
 
-var space = new cp.Space();
-space.addBody(new cp.Body(...))
-// ...</code></pre><h1>Example</h1><p>This code creates a new space, sets 10 physics iterations per update (these increase simulation stability). Then it adds a bunch of line segments to the space.</p>
-<p>In C, this code looked like:</p>
-<pre class="prettyprint source lang-C"><code>  cpSpace *space = cpSpaceNew();
-  space->iterations = 10;
+	var bb = bbNewForCircle(point, maxDistance);
+	this.activeShapes.query(bb, helper);
+	this.staticShapes.query(bb, helper);
 
-  cpVect offset = cpv(-320, -240);
-  for(int i=0; i&lt;(bouncy_terrain_count - 1); i++){
-    cpVect a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    cpShape *shape = cpSpaceAddShape(space, cpSegmentShapeNew(cpSpaceGetStaticBody(space), cpvadd(a, offset), cpvadd(b, offset), 0.0f));
-    cpShapeSetElasticity(shape, 1.0f);
-  }</code></pre><p>In javascript, the equivalent code is:</p>
-<pre class="prettyprint source lang-javascript"><code>  var space = new cp.Space();
-  space.iterations = 10;
+	return out;
+};
 
-  var offset = cp.v(-320, -240);
-  for(var i=0; i&lt;(bouncy_terrain_verts.length - 1); i++){
-    var a = bouncy_terrain_verts[i], b = bouncy_terrain_verts[i+1];
-    var shape = space.addShape(new cp.SegmentShape(space.staticBody, cp.vadd(a, offset), cp.vadd(b, offset), 0));
-    shape.setElasticity(1);
-  }</code></pre><h1>License</h1><p>Like Chipmunk, chipmunk-js is MIT licensed.</p>
-<pre class="prettyprint source"><code>Copyright (c) 2007 Scott Lembcke and Joseph Gentle
+/// Perform a directed line segment query (like a raycast) against the space calling @c func for each shape intersected.
+/**
+ * Perform a directed line segment query (like a raycast) against the space calling @c func for each shape intersected.
+ *
+ * @function
+ * @param	{cp.Vect}	start
+ * @param	{cp.Vect}	end
+ * @param	{number}	layers
+ * @param	{number}	group
+ * @param	{function}	func
+ * @return	{number}
+ */
+Space.prototype.segmentQuery = function(start, end, layers, group, func)
+{
+	var helper = function(shape){
+		var info;
+		
+		if(
+			!(shape.group &amp;&amp; group === shape.group) &amp;&amp; (layers &amp; shape.layers) &amp;&amp;
+			(info = shape.segmentQuery(start, end))
+		){
+			func(shape, info.t, info.n);
+		}
+		
+		return 1;
+	};
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+	this.lock(); {
+		this.staticShapes.segmentQuery(start, end, 1, helper);
+		this.activeShapes.segmentQuery(start, end, 1, helper);
+	} this.unlock(true);
+};
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+/// Perform a directed line segment query (like a raycast) against the space and return the first shape hit.
+/// Returns null if no shapes were hit.
+/**
+ * Perform a directed line segment query (like a raycast) against the space and return the first shape hit.
+ * Returns null if no shapes were hit.
+ *
+ * @function
+ * @param	{cp.Vect}	start
+ * @param	{cp.Vect}	end
+ * @param	{number}	layers
+ * @param	{number}	group
+ * @return	{number}
+ */
+Space.prototype.segmentQueryFirst = function(start, end, layers, group)
+{
+	var out = null;
 
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</code></pre></article>
+	var helper = function(shape){
+		var info;
+		
+		if(
+			!(shape.group &amp;&amp; group === shape.group) &amp;&amp; (layers &amp; shape.layers) &amp;&amp;
+			!shape.sensor &amp;&amp;
+			(info = shape.segmentQuery(start, end)) &amp;&amp;
+			(out === null || info.t &lt; out.t)
+		){
+			out = info;
+		}
+		
+		return out ? out.t : 1;
+	};
+
+	this.staticShapes.segmentQuery(start, end, 1, helper);
+	this.activeShapes.segmentQuery(start, end, out ? out.t : 1, helper);
+	
+	return out;
+};
+
+/// Perform a fast rectangle query on the space calling @c func for each shape found.
+/// Only the shape's bounding boxes are checked for overlap, not their full shape.
+/**
+ * Perform a fast rectangle query on the space calling @c func for each shape found.
+ * Only the shape's bounding boxes are checked for overlap, not their full shape.
+ *
+ * @function
+ * @param	{cp.BB}	bb
+ * @param	{number}	layers
+ * @param	{number}	group
+ * @param	{function}	func
+ */
+Space.prototype.bbQuery = function(bb, layers, group, func)
+{
+	var helper = function(shape){
+		if(
+			!(shape.group &amp;&amp; group === shape.group) &amp;&amp; (layers &amp; shape.layers) &amp;&amp;
+			bbIntersects2(bb, shape.bb_l, shape.bb_b, shape.bb_r, shape.bb_t)
+		){
+			func(shape);
+		}
+	};
+	
+	this.lock(); {
+		this.activeShapes.query(bb, helper);
+		this.staticShapes.query(bb, helper);
+	} this.unlock(true);
+};
+
+/// Query a space for any shapes overlapping the given shape and call @c func for each shape found.
+/**
+ * Query a space for any shapes overlapping the given shape and call @c func for each shape found.
+ *
+ * @function
+ * @param	{cp.Shape}	shape
+ * @param	{function}	func
+ * @return	{boolean}
+ */
+Space.prototype.shapeQuery = function(shape, func)
+{
+	var body = shape.body;
+
+	//var bb = (body ? shape.update(body.p, body.rot) : shape.bb);
+	if(body){
+		shape.update(body.p, body.rot);
+	}
+	var bb = new BB(shape.bb_l, shape.bb_b, shape.bb_r, shape.bb_t);
+
+	//shapeQueryContext context = {func, data, false};
+	var anyCollision = false;
+	
+	var helper = function(b){
+		var a = shape;
+		// Reject any of the simple cases
+		if(
+			(a.group &amp;&amp; a.group === b.group) ||
+			!(a.layers &amp; b.layers) ||
+			a === b
+		) return;
+		
+		var contacts;
+		
+		// Shape 'a' should have the lower shape type. (required by collideShapes() )
+		if(a.collisionCode &lt;= b.collisionCode){
+			contacts = collideShapes(a, b);
+		} else {
+			contacts = collideShapes(b, a);
+			for(var i=0; i&lt;contacts.length; i++) contacts[i].n = vneg(contacts[i].n);
+		}
+		
+		if(contacts.length){
+			anyCollision = !(a.sensor || b.sensor);
+			
+			if(func){
+				var set = new Array(contacts.length);
+				for(var i=0; i&lt;contacts.length; i++){
+					set[i] = new ContactPoint(contacts[i].p, contacts[i].n, contacts[i].dist);
+				}
+				
+				func(b, set);
+			}
+		}
+	};
+
+	this.lock(); {
+		this.activeShapes.query(bb, helper);
+		this.staticShapes.query(bb, helper);
+	} this.unlock(true);
+	
+	return anyCollision;
+};
+
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
@@ -127,7 +343,7 @@ SOFTWARE.</code></pre></article>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:37 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Sat Jul 23 2016 01:10:36 GMT+0800 (TST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
